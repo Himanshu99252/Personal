@@ -3,242 +3,1369 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Happy Birthday, [Enter Name of your loved one]!</title>
+  <title>Vedanshee ❤️ Forever & Always | Happy Birthday My Love</title>
 
-  <!-- This script pulls in Tailwind CSS for styling -->
+  <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            rosewine: '#4c0519',
+            rosedeep: '#be123c',
+            rosebright: '#f43f5e',
+            roseglow: '#fb7185',
+            sakura: '#fbcfe8'
+          }
+        }
+      }
+    }
+  </script>
 
-  <!-- These are for the animations and photo gallery -->
-  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.7.1/css/lightgallery.min.css" />
-
-  <!-- Google Fonts for the Anime look -->
+  <!-- Google Fonts for Romantic Calligraphy and Clean Typography -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Mochiy+Pop+One&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Dancing+Script:wght@500;700&family=Great+Vibes&family=Playfair+Display:ital,wght@0,400;0,600;0,800;1,400;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-  <!-- Link to your new external CSS file -->
-  <link rel="stylesheet" href="style.css">
-  <!-- IMPORTANT: Replace with a real image link after you upload it -->
-  <meta property="og:image" content="https://placehold.co/1200x630/87CEEB/FFFFFF?text=A+Surprise+For+[Name]">
+  <!-- Font Awesome 6 Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <!-- AOS Animations -->
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+  <!-- Canvas Confetti for Heart Bursts -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
+
+  <!-- Custom Stylesheet with 3D Effects and Animations -->
+  <link rel="stylesheet" href="style.css?v=2.2">
 </head>
-<body>
-<!-- Canvas for the falling cherry blossoms -->
-<canvas id="sakura-canvas"></canvas>
 
-<!-- Section 1: Hero Welcome -->
-<header class="h-screen relative flex items-center justify-center text-white overflow-hidden">
-  <video autoplay loop muted playsinline class="absolute top-0 left-0 w-full h-full object-cover z-[-1]">
-    <source src="img/sa.mp4" type="video/mp4">
-    Your browser does not support the video tag.
-  </video>
+<body class="relative selection:bg-rosebright selection:text-white">
 
-  <div class="absolute inset-0 bg-black bg-opacity-40"></div>
-
-  <div class="text-center z-10 p-4" data-aos="fade-in" data-aos-duration="1500">
-    <h1 class="text-5xl md:text-7xl font-anime drop-shadow-lg">Happy Birthday, [Enter Name of your loved one]!</h1>
-    <p class="mt-4 text-xl font-semibold">Celebrating a wonderful journey of...[in background you can add video or photos of your loved one]</p>
-    <div id="countdown" class="mt-6 text-2xl font-semibold tracking-widest leading-relaxed"></div>
+  <!-- Fixed Fullscreen Looping Video Background for Entire Website -->
+  <div id="site-video-background" class="fixed inset-0 w-full h-full overflow-hidden pointer-events-none z-0">
+    <video id="site-bg-video" autoplay loop muted playsinline class="w-full h-full object-cover filter brightness-115 contrast-108 saturate-112 opacity-70">
+      <source src="images/WhatsApp Video 2026-11-08 at 00.38.24.mp4" type="video/mp4">
+    </video>
+    <!-- Soft Romantic Tint Overlay so all photos, quiz, and text look gorgeous and readable -->
+    <div class="absolute inset-0 bg-gradient-to-b from-[#0f051d]/40 via-[#2a082b]/30 to-[#0f051d]/70 pointer-events-none"></div>
   </div>
-</header>
 
-<!-- Main Content -->
-<main class="container mx-auto p-6 md:p-12">
+  <!-- Ambient Glow Backgrounds -->
+  <div class="ambient-glow-1"></div>
+  <div class="ambient-glow-2"></div>
+  <div class="ambient-glow-3"></div>
 
-  <!-- Section 2: A Letter For You -->
-  <section class="my-16 md:my-24 max-w-3xl mx-auto text-center" data-aos="fade-up">
-    <h2 class="text-4xl md:text-5xl font-anime text-sakura mb-8 drop-shadow-sm">A Special Message For You</h2>
-    <div class="text-left text-lg leading-relaxed space-y-4 bg-white p-8 rounded-lg shadow-lg">
-      <!-- TODO: Write your personal letter here -->
-      <p>Hey [Enter Name of your loved one],</p>
-      <p>Wish you a very Happy Birthday [Enter Name of your loved one]! May god fulfil all your wishes, you have an endless supply of happy days and your dreams turns into reality, A life surrounded with pets and life that will become a manga </p>
-      <p>Thankyou for always being so kind and reason behind everyone smile, Always connected to your roots , A true friend to everyone, You always be yourself and that's your vibe We all are very lucky, we are not in city of gems still we found a real gem.</p>
-      <p class="text-right mt-8">
-        Regards<br>
+  <!-- Interactive 3D Canvas (Falling Hearts & Cherry Blossom Petals) -->
+  <canvas id="romantic-canvas"></canvas>
+
+  <!-- Floating Navigation Bar -->
+  <nav class="fixed top-4 left-1/2 -translate-x-1/2 z-40 w-11/12 max-w-5xl glass-card rounded-full px-5 py-3 flex items-center justify-between border border-rose-500/30 shadow-2xl backdrop-blur-xl">
+    <a href="#" class="flex items-center gap-2 group">
+      <span class="text-2xl text-rosebright animate-heartbeat"><i class="fa-solid fa-heart"></i></span>
+      <span class="font-romantic text-2xl md:text-3xl font-bold text-shimmer">Himanshu &hearts; Vedu</span>
+    </a>
+    <div class="hidden md:flex items-center gap-5 text-sm font-medium text-rose-100">
+      <a href="#letter-section" class="hover:text-rosebright transition-colors flex items-center gap-1.5"><i class="fa-solid fa-envelope-open-text text-xs"></i> Letter</a>
+      <a href="#carousel-section" class="hover:text-rosebright transition-colors flex items-center gap-1.5"><i class="fa-solid fa-cube text-xs"></i> 3D Sphere</a>
+      <a href="#story-section" class="hover:text-rosebright transition-colors flex items-center gap-1.5"><i class="fa-solid fa-timeline text-xs"></i> Our Story</a>
+      <a href="#gallery-section" class="hover:text-rosebright transition-colors flex items-center gap-1.5"><i class="fa-solid fa-images text-xs"></i> Gallery</a>
+      <a href="#video-section" class="hover:text-rosebright transition-colors flex items-center gap-1.5"><i class="fa-solid fa-film text-xs"></i> Video</a>
+      <a href="#quiz-section" class="hover:text-rosebright transition-colors flex items-center gap-1.5 text-amber-300 font-semibold"><i class="fa-solid fa-clipboard-question text-xs"></i> Love Quiz</a>
+      <a href="#wishes-section" class="hover:text-rosebright transition-colors flex items-center gap-1.5 text-pink-300"><i class="fa-solid fa-champagne-glasses text-xs"></i> New Year</a>
+    </div>
+    <a href="#finale-section" class="bg-gradient-to-r from-rosebright to-purple-600 hover:from-rose-600 hover:to-purple-700 text-white text-xs md:text-sm font-semibold px-4 py-2 rounded-full shadow-lg transition-transform hover:scale-105 flex items-center gap-2">
+      <i class="fa-solid fa-sparkles"></i> For You
+    </a>
+  </nav>
+
+  <!-- =========================================================================
+       HERO SECTION: Cinematic Romantic Hero Floating Over Continuous Video
+       ========================================================================= -->
+  <header class="min-h-screen relative flex items-center justify-center text-center px-4 pt-28 pb-16 overflow-hidden z-10">
+    <div class="relative z-10 max-w-4xl mx-auto px-4" data-aos="zoom-in" data-aos-duration="1200">
+      
+      <!-- Romantic Badge with Birthdate -->
+      <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-rose-500/20 border border-rose-400/30 text-rose-200 text-xs md:text-sm uppercase tracking-widest mb-6 backdrop-blur-md shadow-lg animate-float-slow">
+        <i class="fa-solid fa-cake-candles text-amber-300"></i>
+        <span>Born 10/11/2003 &bull; Celebrating 23 Magical Years of Vedu</span>
+        <i class="fa-solid fa-heart text-rosebright animate-heartbeat"></i>
+      </div>
+
+      <!-- Main Title -->
+      <h1 class="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-romantic text-shimmer drop-shadow-2xl leading-tight">
+        Vedanshee, You Are My Entire World
+      </h1>
+      
+      <p class="font-romantic text-2xl sm:text-3xl md:text-4xl text-amber-300 mt-2">
+        My Vedu &hearts; My Vishwa
       </p>
-    </div>
-  </section>
 
-  <!-- Section 3: The Timeline -->
-  <section class="my-16 md:my-24">
-    <h2 class="text-4xl md:text-5xl font-anime text-center mb-12" data-aos="fade-up">Your Story Arc</h2>
-    <div class="space-y-16">
-      <!-- Timeline Item 1 -->
-      <div class="flex flex-col md:flex-row items-center gap-8" data-aos="fade-right">
-        <!-- TODO: Replace with your photo -->
-        <img src="img/img1.png" alt="Add photo 1" class="w-full md:w-1/2 rounded-lg shadow-xl border-4 border-white"> <!--replce img1.png with name of your img-->
-        <div class="text-center md:text-left">
-          <!-- TODO: Customize the date and story -->
-          <h3 class="text-2xl font-anime text-sakura">Our first Meeting</h3>
-          <p class="mt-2 text-lg">Write your Story here</p>
-            <br>
+      <p class="font-playfair italic text-lg sm:text-2xl md:text-3xl text-rose-100/90 mt-4 max-w-2xl mx-auto leading-relaxed drop-shadow">
+        "Every love story is beautiful, but ours is my absolute favorite."
+      </p>
+
+      <p class="mt-4 text-sm sm:text-base text-rose-200/80 max-w-xl mx-auto font-light leading-relaxed">
+        Happy Birthday to the most gorgeous, kind-hearted, and incredible girl who stole Himanshu's heart and makes every single second feel like pure magic.
+      </p>
+
+      <!-- Accurate Birthday & Live Age Timers -->
+      <div class="mt-8 mb-8 space-y-5" data-aos="fade-up" data-aos-delay="200">
+        <!-- Birthday Countdown Card -->
+        <div class="glass-card-rose max-w-xl mx-auto p-4 sm:p-5 rounded-2xl border border-rose-400/40 shadow-xl">
+          <div class="flex items-center justify-center gap-2 text-xs uppercase tracking-widest text-amber-300 font-bold mb-2">
+            <i class="fa-solid fa-hourglass-start"></i>
+            <span>Countdown to Vedu's 23rd Birthday (10th November)</span>
+            <i class="fa-solid fa-cake-candles"></i>
+          </div>
+          <div id="birthday-countdown"></div>
+        </div>
+
+        <!-- Exact Live Age Counter -->
+        <div class="glass-card max-w-2xl mx-auto p-4 sm:p-5 rounded-2xl border border-white/15 shadow-xl">
+          <div class="flex items-center justify-center gap-2 text-xs uppercase tracking-widest text-rose-300 font-semibold mb-2">
+            <i class="fa-solid fa-heart-pulse text-rosebright"></i>
+            <span>Exact Time Vedu Has Blessed This World (Since 10/11/2003)</span>
+          </div>
+          <div id="live-age-counter"></div>
         </div>
       </div>
-      <!-- Timeline Item 2 -->
-      <div class="flex flex-col md:flex-row-reverse items-center gap-8" data-aos="fade-left">
-        <!-- TODO: Replace with your photo -->
-        <img src="img/img2.png" alt="Add photo 2" class="w-full md:w-1/2 rounded-lg shadow-xl border-4 border-white">
-        <div class="text-center md:text-right">
-          <!-- TODO: Customize the date and story -->
-          <h3 class="text-2xl font-anime text-sakura">Part 2</h3>
-          <p class="mt-2 text-lg">Message 2</p>
-         <br>
-        </div>
+
+      <!-- Call to Action Buttons with 3D Hover -->
+      <div class="flex flex-wrap items-center justify-center gap-4 mt-8" data-aos="fade-up" data-aos-delay="400">
+        <a href="#quiz-section" class="tilt-card-container">
+          <button class="bg-gradient-to-r from-amber-400 to-rosebright hover:from-amber-300 hover:to-rose-600 px-7 py-3.5 rounded-full text-white font-bold text-sm md:text-base flex items-center gap-2.5 transition-all hover:scale-105 shadow-xl">
+            <i class="fa-solid fa-clipboard-question text-lg"></i>
+            <span>Play Love Quiz</span>
+          </button>
+        </a>
+
+        <a href="#letter-section" class="tilt-card-container">
+          <button class="glass-card-rose px-7 py-3.5 rounded-full text-white font-semibold text-sm md:text-base flex items-center gap-2.5 transition-all hover:scale-105 shadow-xl hover:shadow-rose-500/50">
+            <i class="fa-solid fa-envelope-open-text text-amber-300 text-lg"></i>
+            <span>Read Love Letter</span>
+          </button>
+        </a>
+
+        <a href="#carousel-section" class="tilt-card-container">
+          <button class="glass-card px-7 py-3.5 rounded-full text-white font-semibold text-sm md:text-base flex items-center gap-2.5 transition-all hover:scale-105 border border-white/20 hover:border-rosebright">
+            <i class="fa-solid fa-cube text-rosebright text-lg"></i>
+            <span>3D Memory Ring</span>
+          </button>
+        </a>
+
+        <a href="#video-section" class="tilt-card-container">
+          <button class="glass-card px-7 py-3.5 rounded-full text-white font-semibold text-sm md:text-base flex items-center gap-2.5 transition-all hover:scale-105 border border-white/20 hover:border-amber-400">
+            <i class="fa-solid fa-circle-play text-amber-400 text-lg"></i>
+            <span>Our Video</span>
+          </button>
+        </a>
       </div>
-      <!-- Timeline Item 3 (NEW) -->
-      <div class="flex flex-col md:flex-row items-center gap-8" data-aos="fade-right">
-        <img src="img/img3.png" alt="Add photo 3" class="w-full md:w-1/2 rounded-lg shadow-xl border-4 border-white">
-        <div class="text-center md:text-left">
-          <h3 class="text-2xl font-anime text-sakura">Part3</h3>
-          <p class="mt-2 text-lg">Message3</p>
-         <br>
-        </div>
+
+      <div class="mt-12 animate-bounce text-rose-400 text-xl">
+        <a href="#letter-section" aria-label="Scroll down"><i class="fa-solid fa-chevron-down"></i></a>
       </div>
-      <!-- Timeline Item 4 (NEW) -->
-      <div class="flex flex-col md:flex-row-reverse items-center gap-8" data-aos="fade-left">
-        <img src="img/img4.png" alt="Add photo4" class="w-full md:w-1/2 rounded-lg shadow-xl border-4 border-white">
-        <div class="text-center md:text-right">
-          <h3 class="text-2xl font-anime text-sakura">Part 4</h3>
-          <p class="mt-2 text-lg">Message 4</p>
-            <br>
+    </div>
+  </header>
+
+  <!-- =========================================================================
+       SECTION 1: Interactive 3D Love Envelope & Letter for Vedanshee
+       ========================================================================= -->
+  <section id="letter-section" class="py-24 px-4 relative z-10">
+    <div class="max-w-4xl mx-auto text-center mb-12" data-aos="fade-up">
+      <span class="text-rosebright uppercase text-xs tracking-widest font-bold">Unseal Himanshu's Heart</span>
+      <h2 class="text-4xl md:text-6xl font-romantic text-shimmer mt-2">A Love Letter For My Vedu</h2>
+      <p class="text-rose-200/80 text-sm md:text-base mt-2">Tap on the golden wax seal below to open your personal love letter from Himanshu</p>
+    </div>
+
+    <!-- 3D Envelope Component -->
+    <div class="max-w-xl mx-auto envelope-wrapper" data-aos="zoom-in" data-aos-duration="1000">
+      <div id="love-envelope" class="envelope">
+        <!-- Flap with 3D Fold -->
+        <div class="envelope-flap"></div>
+        <div class="envelope-side-left"></div>
+        <div class="envelope-side-right"></div>
+        <div class="envelope-pocket"></div>
+
+        <!-- Golden Wax Seal -->
+        <div id="envelope-seal" class="envelope-seal cursor-pointer group" title="Click to break seal and open letter">
+          <i class="fa-solid fa-heart text-white group-hover:scale-125 transition-transform"></i>
+        </div>
+
+        <!-- The Handwritten Letter Inside -->
+        <div class="letter-sheet text-gray-800 text-left font-handwriting text-lg sm:text-xl md:text-2xl" id="letter-content">
+          <div class="flex justify-between items-center border-b border-rose-200 pb-2 mb-3">
+            <span class="font-bold text-rosewine">To My Dearest Vedu (Vedanshee / Vishwa) ❤️</span>
+            <span class="text-xs text-rose-400 font-sans uppercase tracking-wider">From Himanshu</span>
+          </div>
+
+          <p class="mb-3">
+            Hey my beautiful Vedu,
+          </p>
+
+          <p class="mb-3">
+            Happy 23rd Birthday to the love of my life! Ever since you came into my world on 10th November, life has become so much sweeter, brighter, and full of pure love.
+          </p>
+
+          <p class="mb-3">
+            I will never, ever forget <strong class="text-rosedeep underline">15th September (15/9)</strong> — the magical day you accepted my love and made me the happiest guy on this earth! ❤️ And exactly one month later, on <strong class="text-rosedeep underline">15th October (15/10)</strong>, our very first date at the movie theatre — a day I never miss and will cherish forever in my soul.
+          </p>
+
+          <p class="mb-3">
+            From the day we went to the movie theatre together, to every silly giggle and precious moment we share, you have become my safest place and my biggest blessing.
+          </p>
+
+          <p class="mb-3">
+            I promise to always stand by your side, protect your smile, hold your hand through every chapter of our lives, and love you more and more each passing day.
+          </p>
+
+          <div class="mt-6 pt-3 border-t border-rose-200 flex justify-between items-end">
+            <div class="text-rose-700 text-sm font-sans font-medium">
+              <span>Forever & Truly Yours,</span>
+            </div>
+            <div class="font-romantic text-2xl sm:text-3xl text-rosedeep">
+              Himanshu Loves You ❤️
+            </div>
+          </div>
         </div>
       </div>
     </div>
-  </section>
 
-  <!-- Section 4: Your Favourite Photos of your loved Ones (NEW SECTION) -->
-  <section class="my-16 md:my-24">
-    <h2 class="text-4xl md:text-5xl font-anime text-center mb-12" data-aos="fade-up">Hall of Fame</h2>
-    <div class="relative">
-      <!-- Scroll Buttons -->
-      <button id="scroll-left-btn" class="absolute left-0 top-1/2 -translate-y-1/2 z-20 bg-white/80 hover:bg-white rounded-full p-2 shadow-md transition-opacity opacity-0 md:opacity-100">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-sakura" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" /></svg>
+    <!-- Helper Button to Open Letter -->
+    <div class="text-center mt-10">
+      <button id="open-letter-btn" class="glass-card-rose px-6 py-2.5 rounded-full text-white text-sm font-medium hover:scale-105 transition-all shadow-lg inline-flex items-center gap-2">
+        <i class="fa-solid fa-envelope-open"></i> Tap to Open / Expand Letter
       </button>
-      <button id="scroll-right-btn" class="absolute right-0 top-1/2 -translate-y-1/2 z-20 bg-white/80 hover:bg-white rounded-full p-2 shadow-md transition-opacity opacity-0 md:opacity-100">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-sakura" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" /></svg>
-      </button>
+    </div>
+  </section>
 
-      <!-- Scrollable Container -->
-      <div id="hall-of-fame-scroller" class="flex overflow-x-auto scroll-smooth snap-x snap-mandatory scrollbar-hide p-4 -mx-4">
-        <div class="flex snap-x snap-mandatory gap-8">
-          <!--  Card 1 -->
-          <div class="snap-center flex-shrink-0 w-10/12 sm:w-1/2 md:w-1/3 lg:w-1/4" data-aos="fade-up" data-aos-delay="100">
-            <div class="bg-white p-6 rounded-lg shadow-lg text-center h-full">
-              <img src="img/image1.png" alt="Photo 1" class="w-full h-80 object-cover rounded-md mb-4"> 
-              <h3 class="text-2xl font-anime text-sakura">Photo 1</h3>
-              <p class="mt-2">"Caption 1”"</p>
-            </div>
-          </div>
-          <!--  Card 2 -->
-          <div class="snap-center flex-shrink-0 w-10/12 sm:w-1/2 md:w-1/3 lg:w-1/4" data-aos="fade-up" data-aos-delay="200">
-            <div class="bg-white p-6 rounded-lg shadow-lg text-center h-full">
-              <img src="img/image2.png" alt="Photo 2" class="w-full h-80 object-cover rounded-md mb-4">
-              <h3 class="text-2xl font-anime text-sakura">Photo 2</h3>
-              <p class="mt-2">"Caption 2"</p>
-            </div>
-          </div>
-          <!--  Card 3 -->
-          <div class="snap-center flex-shrink-0 w-10/12 sm:w-1/2 md:w-1/3 lg:w-1/4" data-aos="fade-up" data-aos-delay="300">
-            <div class="bg-white p-6 rounded-lg shadow-lg text-center h-full">
-              <img src="img/image3.png" alt="Photo 3" class="w-full h-80 object-cover rounded-md mb-4">
-              <h3 class="text-2xl font-anime text-sakura">Photo 3</h3>
-              <p class="mt-2">"Caption 3"</p>
-            </div>
-          </div>
-          <!--  Card 4 -->
-          <div class="snap-center flex-shrink-0 w-10/12 sm:w-1/2 md:w-1/3 lg:w-1/4" data-aos="fade-up" data-aos-delay="400">
-            <div class="bg-white p-6 rounded-lg shadow-lg text-center h-full">
-              <img src="img/image4.png" alt="Photo 4" class="w-full h-80 object-cover rounded-md mb-4">
-              <h3 class="text-2xl font-anime text-sakura">Photo 4</h3>
-              <p class="mt-2">"Caption 4"</p>
-            </div>
-          </div>
-          <!--  Card 5 -->
-          <div class="snap-center flex-shrink-0 w-10/12 sm:w-1/2 md:w-1/3 lg:w-1/4" data-aos="fade-up" data-aos-delay="500">
-            <div class="bg-white p-6 rounded-lg shadow-lg text-center h-full">
-              <img src="img/image5.png" alt="Photo 5" class="w-full h-80 object-cover rounded-md mb-4">
-              <h3 class="text-2xl font-anime text-sakura">Photo 5</h3>
-              <p class="mt-2">"Caption 5"</p>
-            </div>
-          </div>
-          <!-- Card 6 -->
-          <div class="snap-center flex-shrink-0 w-10/12 sm:w-1/2 md:w-1/3 lg:w-1/4" data-aos="fade-up" data-aos-delay="600">
-            <div class="bg-white p-6 rounded-lg shadow-lg text-center h-full">
-              <img src="img/image6.png" alt="Photo 6" class="w-full h-80 object-cover rounded-md mb-4">
-              <h3 class="text-2xl font-anime text-sakura">Photo 6</h3>
-              <p class="mt-2">"Caption 6"</p>
-            </div>
+  <!-- =========================================================================
+       SECTION 2: 3D Interactive Rotating Showcase Ring (Memory Sphere)
+       ========================================================================= -->
+  <section id="carousel-section" class="py-24 px-4 relative z-10 overflow-hidden">
+    <div class="max-w-4xl mx-auto text-center mb-16" data-aos="fade-up">
+      <span class="text-rosebright uppercase text-xs tracking-widest font-bold">Interactive 3D Experience</span>
+      <h2 class="text-4xl md:text-6xl font-romantic text-shimmer mt-2">The 3D Memory Ring</h2>
+      <p class="text-rose-200/80 text-sm md:text-base mt-2">Swipe, drag, or use the buttons below to rotate the 3D gallery in real-time</p>
+    </div>
+
+    <!-- 3D Carousel Scene (8 Cards in 3D Space) -->
+    <div class="carousel-3d-scene" data-aos="zoom-in" data-aos-duration="1000">
+      <div id="carousel-3d-ring" class="carousel-3d-ring">
+        
+        <div class="carousel-3d-item" data-gallery-img="images/WhatsApp Image 2026-11-08 at 00.34.26.jpeg" data-gallery-caption="Pure Radiance & Grace ✨">
+          <img src="images/WhatsApp Image 2026-11-08 at 00.34.26.jpeg" alt="Vedanshee Memory 1" loading="lazy">
+          <div class="item-overlay">
+            <h4 class="font-romantic text-2xl text-rose-200">Pure Radiance</h4>
+            <p class="text-xs text-rose-300/90 font-light">The glow that brightens my day</p>
           </div>
         </div>
+
+        <div class="carousel-3d-item" data-gallery-img="images/WhatsApp Image 2026-11-08 at 00.34.39.jpeg" data-gallery-caption="That Magical Smile That Stole My Heart ❤️">
+          <img src="images/WhatsApp Image 2026-11-08 at 00.34.39.jpeg" alt="Vedanshee Memory 2" loading="lazy">
+          <div class="item-overlay">
+            <h4 class="font-romantic text-2xl text-rose-200">Magical Smile</h4>
+            <p class="text-xs text-rose-300/90 font-light">Stole my heart from day one</p>
+          </div>
+        </div>
+
+        <div class="carousel-3d-item" data-gallery-img="images/WhatsApp Image 2026-11-08 at 00.34.46.jpeg" data-gallery-caption="My Favorite Sight in the Entire World 🌹">
+          <img src="images/WhatsApp Image 2026-11-08 at 00.34.46.jpeg" alt="Vedanshee Memory 3" loading="lazy">
+          <div class="item-overlay">
+            <h4 class="font-romantic text-2xl text-rose-200">My Favorite View</h4>
+            <p class="text-xs text-rose-300/90 font-light">Every glance takes my breath away</p>
+          </div>
+        </div>
+
+        <div class="carousel-3d-item" data-gallery-img="images/WhatsApp Image 2026-11-08 at 00.34.55.jpeg" data-gallery-caption="Breathtakingly Beautiful Vedanshee 💖">
+          <img src="images/WhatsApp Image 2026-11-08 at 00.34.55.jpeg" alt="Vedanshee Memory 4" loading="lazy">
+          <div class="item-overlay">
+            <h4 class="font-romantic text-2xl text-rose-200">Breathtaking</h4>
+            <p class="text-xs text-rose-300/90 font-light">Flawless inside and out</p>
+          </div>
+        </div>
+
+        <div class="carousel-3d-item" data-gallery-img="images/WhatsApp Image 2026-11-08 at 00.35.03.jpeg" data-gallery-caption="Gentle Eyes & Pure Heart 💕">
+          <img src="images/WhatsApp Image 2026-11-08 at 00.35.03.jpeg" alt="Vedanshee Memory 5" loading="lazy">
+          <div class="item-overlay">
+            <h4 class="font-romantic text-2xl text-rose-200">Pure Heart</h4>
+            <p class="text-xs text-rose-300/90 font-light">A soul as beautiful as her face</p>
+          </div>
+        </div>
+
+        <div class="carousel-3d-item" data-gallery-img="images/WhatsApp Image 2026-11-08 at 00.35.11.jpeg" data-gallery-caption="Queen of My Universe 👑">
+          <img src="images/WhatsApp Image 2026-11-08 at 00.35.11.jpeg" alt="Vedanshee Memory 6" loading="lazy">
+          <div class="item-overlay">
+            <h4 class="font-romantic text-2xl text-rose-200">My Queen</h4>
+            <p class="text-xs text-rose-300/90 font-light">Ruling my heart forever</p>
+          </div>
+        </div>
+
+        <div class="carousel-3d-item" data-gallery-img="images/WhatsApp Image 2026-11-08 at 00.47.51.jpeg" data-gallery-caption="Stunning Elegance & Charm ✨">
+          <img src="images/WhatsApp Image 2026-11-08 at 00.47.51.jpeg" alt="Vedanshee Memory 7" loading="lazy">
+          <div class="item-overlay">
+            <h4 class="font-romantic text-2xl text-rose-200">Stunning Elegance</h4>
+            <p class="text-xs text-rose-300/90 font-light">Leaves me speechless</p>
+          </div>
+        </div>
+
+        <div class="carousel-3d-item" data-gallery-img="images/WhatsApp Image 2026-11-08 at 00.47.54.jpeg" data-gallery-caption="Forever Mine, Vedanshee 💍❤️">
+          <img src="images/WhatsApp Image 2026-11-08 at 00.47.54.jpeg" alt="Vedanshee Memory 8" loading="lazy">
+          <div class="item-overlay">
+            <h4 class="font-romantic text-2xl text-rose-200">Forever Mine</h4>
+            <p class="text-xs text-rose-300/90 font-light">My heart belongs to you</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- 3D Carousel Controls -->
+    <div class="flex items-center justify-center gap-6 mt-12">
+      <button id="carousel-prev" class="w-12 h-12 rounded-full glass-card hover:bg-rosebright text-white flex items-center justify-center transition-all hover:scale-110 shadow-lg border border-white/20" title="Previous photo">
+        <i class="fa-solid fa-arrow-left"></i>
+      </button>
+      <span class="text-xs text-rose-300/70 uppercase tracking-widest">Rotate Ring</span>
+      <button id="carousel-next" class="w-12 h-12 rounded-full glass-card hover:bg-rosebright text-white flex items-center justify-center transition-all hover:scale-110 shadow-lg border border-white/20" title="Next photo">
+        <i class="fa-solid fa-arrow-right"></i>
+      </button>
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       SECTION 3: Our Love Story Timeline (3D Tilt Cards)
+       ========================================================================= -->
+  <section id="story-section" class="py-24 px-4 relative z-10">
+    <div class="max-w-4xl mx-auto text-center mb-20" data-aos="fade-up">
+      <span class="text-rosebright uppercase text-xs tracking-widest font-bold">Our Love Journey</span>
+      <h2 class="text-4xl md:text-6xl font-romantic text-shimmer mt-2">Every Chapter With You</h2>
+      <p class="text-rose-200/80 text-sm md:text-base mt-2">The unforgettable milestones that led me to the love of my life</p>
+    </div>
+
+    <div class="max-w-5xl mx-auto space-y-24">
+      
+      <!-- Story Item 1 -->
+      <div class="flex flex-col md:flex-row items-center gap-10" data-aos="fade-right">
+        <div class="w-full md:w-1/2 tilt-card-container">
+          <div class="tilt-card glass-card p-3 rounded-2xl cursor-pointer" data-gallery-img="images/WhatsApp Image 2026-11-08 at 00.35.19.jpeg" data-gallery-caption="When My Heart First Found Its Home ❤️">
+            <img src="images/WhatsApp Image 2026-11-08 at 00.35.19.jpeg" alt="Story Chapter 1" class="w-full h-80 object-cover rounded-xl shadow-lg" loading="lazy">
+            <div class="tilt-card-glare"></div>
+          </div>
+        </div>
+        <div class="w-full md:w-1/2 text-center md:text-left">
+          <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-rose-500/20 text-rosebright text-xs font-semibold mb-3 border border-rose-500/30">
+            <i class="fa-solid fa-heart animate-heartbeat text-xs"></i> 15th September (15/9) &bull; You Accepted My Love
+          </div>
+          <h3 class="text-3xl font-romantic text-rose-200">The Day You Said Yes (15/9)</h3>
+          <p class="mt-3 text-rose-100/80 leading-relaxed font-light text-base">
+            15th September is etched into my soul forever — the magical moment you accepted my love and made Himanshu the happiest and luckiest guy on this earth! Everything became brighter, softer, and filled with true love.
+          </p>
+        </div>
+      </div>
+
+      <!-- Story Item 2 -->
+      <div class="flex flex-col md:flex-row-reverse items-center gap-10" data-aos="fade-left">
+        <div class="w-full md:w-1/2 tilt-card-container">
+          <div class="tilt-card glass-card p-3 rounded-2xl cursor-pointer" data-gallery-img="images/WhatsApp Image 2026-11-08 at 00.37.43.jpeg" data-gallery-caption="Our First Date in the Movie Theatre (15/10) ✨">
+            <img src="images/WhatsApp Image 2026-11-08 at 00.37.43.jpeg" alt="Story Chapter 2" class="w-full h-80 object-cover rounded-xl shadow-lg" loading="lazy">
+            <div class="tilt-card-glare"></div>
+          </div>
+        </div>
+        <div class="w-full md:w-1/2 text-center md:text-right">
+          <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-rose-500/20 text-amber-300 text-xs font-semibold mb-3 border border-amber-500/30">
+            <i class="fa-solid fa-film text-xs"></i> 15th October (15/10) &bull; Our First Date (I Never Miss!)
+          </div>
+          <h3 class="text-3xl font-romantic text-rose-200">Our First Date at the Theatre (15/10)</h3>
+          <p class="mt-3 text-rose-100/80 leading-relaxed font-light text-base">
+            Exactly one month later on 15/10, we went to the movie theatre for our very first date! Seeing you laugh, sharing popcorn, and sitting beside the prettiest girl in the universe... this is a date I will NEVER miss or forget!
+          </p>
+        </div>
+      </div>
+
+      <!-- Story Item 3 -->
+      <div class="flex flex-col md:flex-row items-center gap-10" data-aos="fade-right">
+        <div class="w-full md:w-1/2 tilt-card-container">
+          <div class="tilt-card glass-card p-3 rounded-2xl cursor-pointer" data-gallery-img="images/WhatsApp Image 2026-11-08 at 00.38.03 (1).jpeg" data-gallery-caption="Unconditional Love and Infinite Laughter 💕">
+            <img src="images/WhatsApp Image 2026-11-08 at 00.38.03 (1).jpeg" alt="Story Chapter 3" class="w-full h-80 object-cover rounded-xl shadow-lg" loading="lazy">
+            <div class="tilt-card-glare"></div>
+          </div>
+        </div>
+        <div class="w-full md:w-1/2 text-center md:text-left">
+          <div class="inline-block px-3 py-1 rounded-full bg-rose-500/20 text-rosebright text-xs font-semibold mb-3 border border-rose-500/30">
+            Chapter 3
+          </div>
+          <h3 class="text-3xl font-romantic text-rose-200">Our Unbreakable Bond</h3>
+          <p class="mt-3 text-rose-100/80 leading-relaxed font-light text-base">
+            Through late-night chats, shared dreams, secret jokes, and everyday moments, we built a bond stronger than anything. You understand me without words and hold my heart like no one else ever could.
+          </p>
+        </div>
+      </div>
+
+      <!-- Story Item 4 -->
+      <div class="flex flex-col md:flex-row-reverse items-center gap-10" data-aos="fade-left">
+        <div class="w-full md:w-1/2 tilt-card-container">
+          <div class="tilt-card glass-card p-3 rounded-2xl cursor-pointer" data-gallery-img="images/WhatsApp Image 2026-11-08 at 00.38.03.jpeg" data-gallery-caption="Today, Tomorrow, and For All Eternity 💍">
+            <img src="images/WhatsApp Image 2026-11-08 at 00.38.03.jpeg" alt="Story Chapter 4" class="w-full h-80 object-cover rounded-xl shadow-lg" loading="lazy">
+            <div class="tilt-card-glare"></div>
+          </div>
+        </div>
+        <div class="w-full md:w-1/2 text-center md:text-right">
+          <div class="inline-block px-3 py-1 rounded-full bg-rose-500/20 text-rosebright text-xs font-semibold mb-3 border border-rose-500/30">
+            Chapter 4
+          </div>
+          <h3 class="text-3xl font-romantic text-rose-200">Forever & Always</h3>
+          <p class="mt-3 text-rose-100/80 leading-relaxed font-light text-base">
+            This is only the beginning of our forever. I love you not only for who you are, but for who I am when I am with you. Here is to making a million more sweet memories together, Vedanshee!
+          </p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       SECTION 4: Complete Polaroid & 3D Tilt Gallery (ALL 21 PHOTOS!)
+       ========================================================================= -->
+  <section id="gallery-section" class="py-24 px-4 relative z-10">
+    <div class="max-w-4xl mx-auto text-center mb-16" data-aos="fade-up">
+      <span class="text-rosebright uppercase text-xs tracking-widest font-bold">Queen of My Heart</span>
+      <h2 class="text-4xl md:text-6xl font-romantic text-shimmer mt-2">Vedanshee's Hall of Fame</h2>
+      <p class="text-rose-200/80 text-sm md:text-base mt-2">Every single photo is a precious treasure. Click any photo to enlarge and admire in high-res!</p>
+    </div>
+
+    <!-- Responsive Grid for all 21 Real Images -->
+    <div class="max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+      
+      <!-- Photo 1 -->
+      <div class="polaroid-card" data-aos="fade-up" data-gallery-img="images/WhatsApp Image 2026-11-08 at 00.34.26.jpeg" data-gallery-caption="Pure Radiance & Grace ✨">
+        <div class="polaroid-img-wrapper">
+          <img src="images/WhatsApp Image 2026-11-08 at 00.34.26.jpeg" alt="Vedanshee Photo 1" loading="lazy">
+        </div>
+        <div class="mt-3 text-center">
+          <h4 class="font-romantic text-2xl text-rose-100 font-bold drop-shadow">Pure Radiance</h4>
+          <p class="text-xs text-rose-200/80 font-sans mt-1">"Your light guides my heart"</p>
+          <div class="mt-2 text-rosebright text-xs flex items-center justify-center gap-1 font-semibold">
+            <i class="fa-solid fa-heart animate-heartbeat"></i> <span>Loved Forever</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Photo 2 -->
+      <div class="polaroid-card" data-aos="fade-up" data-aos-delay="50" data-gallery-img="images/WhatsApp Image 2026-11-08 at 00.34.39.jpeg" data-gallery-caption="The Smile That Makes My Day ❤️">
+        <div class="polaroid-img-wrapper">
+          <img src="images/WhatsApp Image 2026-11-08 at 00.34.39.jpeg" alt="Vedanshee Photo 2" loading="lazy">
+        </div>
+        <div class="mt-3 text-center">
+          <h4 class="font-romantic text-2xl text-rose-100 font-bold drop-shadow">Sunlit Smile</h4>
+          <p class="text-xs text-rose-200/80 font-sans mt-1">"Warmer than the summer sun"</p>
+          <div class="mt-2 text-rosebright text-xs flex items-center justify-center gap-1 font-semibold">
+            <i class="fa-solid fa-heart animate-heartbeat"></i> <span>Loved Forever</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Photo 3 -->
+      <div class="polaroid-card" data-aos="fade-up" data-aos-delay="100" data-gallery-img="images/WhatsApp Image 2026-11-08 at 00.34.46.jpeg" data-gallery-caption="My Favorite View in the World 🌹">
+        <div class="polaroid-img-wrapper">
+          <img src="images/WhatsApp Image 2026-11-08 at 00.34.46.jpeg" alt="Vedanshee Photo 3" loading="lazy">
+        </div>
+        <div class="mt-3 text-center">
+          <h4 class="font-romantic text-2xl text-rose-100 font-bold drop-shadow">My Favorite View</h4>
+          <p class="text-xs text-rose-200/80 font-sans mt-1">"I could look at you for hours"</p>
+          <div class="mt-2 text-rosebright text-xs flex items-center justify-center gap-1 font-semibold">
+            <i class="fa-solid fa-heart animate-heartbeat"></i> <span>Loved Forever</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Photo 4 -->
+      <div class="polaroid-card" data-aos="fade-up" data-aos-delay="150" data-gallery-img="images/WhatsApp Image 2026-11-08 at 00.34.55.jpeg" data-gallery-caption="Simply Breathtaking Vedanshee 💖">
+        <div class="polaroid-img-wrapper">
+          <img src="images/WhatsApp Image 2026-11-08 at 00.34.55.jpeg" alt="Vedanshee Photo 4" loading="lazy">
+        </div>
+        <div class="mt-3 text-center">
+          <h4 class="font-romantic text-2xl text-rose-100 font-bold drop-shadow">Breathtaking</h4>
+          <p class="text-xs text-rose-200/80 font-sans mt-1">"Perfection in every way"</p>
+          <div class="mt-2 text-rosebright text-xs flex items-center justify-center gap-1 font-semibold">
+            <i class="fa-solid fa-heart animate-heartbeat"></i> <span>Loved Forever</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Photo 5 -->
+      <div class="polaroid-card" data-aos="fade-up" data-gallery-img="images/WhatsApp Image 2026-11-08 at 00.35.03.jpeg" data-gallery-caption="Pure Magic in Every Look ✨">
+        <div class="polaroid-img-wrapper">
+          <img src="images/WhatsApp Image 2026-11-08 at 00.35.03.jpeg" alt="Vedanshee Photo 5" loading="lazy">
+        </div>
+        <div class="mt-3 text-center">
+          <h4 class="font-romantic text-2xl text-rose-100 font-bold drop-shadow">Pure Magic</h4>
+          <p class="text-xs text-rose-200/80 font-sans mt-1">"A soul so gentle and kind"</p>
+          <div class="mt-2 text-rosebright text-xs flex items-center justify-center gap-1 font-semibold">
+            <i class="fa-solid fa-heart animate-heartbeat"></i> <span>Loved Forever</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Photo 6 -->
+      <div class="polaroid-card" data-aos="fade-up" data-aos-delay="50" data-gallery-img="images/WhatsApp Image 2026-11-08 at 00.35.11.jpeg" data-gallery-caption="The Queen of My Heart 👑">
+        <div class="polaroid-img-wrapper">
+          <img src="images/WhatsApp Image 2026-11-08 at 00.35.11.jpeg" alt="Vedanshee Photo 6" loading="lazy">
+        </div>
+        <div class="mt-3 text-center">
+          <h4 class="font-romantic text-2xl text-rose-100 font-bold drop-shadow">My Queen</h4>
+          <p class="text-xs text-rose-200/80 font-sans mt-1">"You wear grace like a crown"</p>
+          <div class="mt-2 text-rosebright text-xs flex items-center justify-center gap-1 font-semibold">
+            <i class="fa-solid fa-heart animate-heartbeat"></i> <span>Loved Forever</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Photo 7 -->
+      <div class="polaroid-card" data-aos="fade-up" data-aos-delay="100" data-gallery-img="images/WhatsApp Image 2026-11-08 at 00.35.19.jpeg" data-gallery-caption="Cherished Forever & Always 💕">
+        <div class="polaroid-img-wrapper">
+          <img src="images/WhatsApp Image 2026-11-08 at 00.35.19.jpeg" alt="Vedanshee Photo 7" loading="lazy">
+        </div>
+        <div class="mt-3 text-center">
+          <h4 class="font-romantic text-2xl text-rose-100 font-bold drop-shadow">Cherished</h4>
+          <p class="text-xs text-rose-200/80 font-sans mt-1">"Locked forever in my heart"</p>
+          <div class="mt-2 text-rosebright text-xs flex items-center justify-center gap-1 font-semibold">
+            <i class="fa-solid fa-heart animate-heartbeat"></i> <span>Loved Forever</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Photo 8 -->
+      <div class="polaroid-card" data-aos="fade-up" data-aos-delay="150" data-gallery-img="images/WhatsApp Image 2026-11-08 at 00.37.43.jpeg" data-gallery-caption="My Sweetest Blessing 🌹">
+        <div class="polaroid-img-wrapper">
+          <img src="images/WhatsApp Image 2026-11-08 at 00.37.43.jpeg" alt="Vedanshee Photo 8" loading="lazy">
+        </div>
+        <div class="mt-3 text-center">
+          <h4 class="font-romantic text-2xl text-rose-100 font-bold drop-shadow">Sweet Blessing</h4>
+          <p class="text-xs text-rose-200/80 font-sans mt-1">"Life became beautiful with you"</p>
+          <div class="mt-2 text-rosebright text-xs flex items-center justify-center gap-1 font-semibold">
+            <i class="fa-solid fa-heart animate-heartbeat"></i> <span>Loved Forever</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Photo 9 -->
+      <div class="polaroid-card" data-aos="fade-up" data-gallery-img="images/WhatsApp Image 2026-11-08 at 00.38.03 (1).jpeg" data-gallery-caption="Endless Sunshine & Joy ☀️">
+        <div class="polaroid-img-wrapper">
+          <img src="images/WhatsApp Image 2026-11-08 at 00.38.03 (1).jpeg" alt="Vedanshee Photo 9" loading="lazy">
+        </div>
+        <div class="mt-3 text-center">
+          <h4 class="font-romantic text-2xl text-rose-100 font-bold drop-shadow">Endless Joy</h4>
+          <p class="text-xs text-rose-200/80 font-sans mt-1">"Laughter that cures my soul"</p>
+          <div class="mt-2 text-rosebright text-xs flex items-center justify-center gap-1 font-semibold">
+            <i class="fa-solid fa-heart animate-heartbeat"></i> <span>Loved Forever</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Photo 10 -->
+      <div class="polaroid-card" data-aos="fade-up" data-aos-delay="50" data-gallery-img="images/WhatsApp Image 2026-11-08 at 00.38.03.jpeg" data-gallery-caption="My One and Only, Vedanshee 💍❤️">
+        <div class="polaroid-img-wrapper">
+          <img src="images/WhatsApp Image 2026-11-08 at 00.38.03.jpeg" alt="Vedanshee Photo 10" loading="lazy">
+        </div>
+        <div class="mt-3 text-center">
+          <h4 class="font-romantic text-2xl text-rose-100 font-bold drop-shadow">My One & Only</h4>
+          <p class="text-xs text-rose-200/80 font-sans mt-1">"Forever chose you"</p>
+          <div class="mt-2 text-rosebright text-xs flex items-center justify-center gap-1 font-semibold">
+            <i class="fa-solid fa-heart animate-heartbeat"></i> <span>Loved Forever</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Photo 11 -->
+      <div class="polaroid-card" data-aos="fade-up" data-aos-delay="100" data-gallery-img="images/WhatsApp Image 2026-11-08 at 00.47.51 (1).jpeg" data-gallery-caption="Angel in Disguise 🪽">
+        <div class="polaroid-img-wrapper">
+          <img src="images/WhatsApp Image 2026-11-08 at 00.47.51 (1).jpeg" alt="Vedanshee Photo 11" loading="lazy">
+        </div>
+        <div class="mt-3 text-center">
+          <h4 class="font-romantic text-2xl text-rose-100 font-bold drop-shadow">Angel Heart</h4>
+          <p class="text-xs text-rose-200/80 font-sans mt-1">"Heaven sent you for me"</p>
+          <div class="mt-2 text-rosebright text-xs flex items-center justify-center gap-1 font-semibold">
+            <i class="fa-solid fa-heart animate-heartbeat"></i> <span>Loved Forever</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Photo 12 -->
+      <div class="polaroid-card" data-aos="fade-up" data-aos-delay="150" data-gallery-img="images/WhatsApp Image 2026-11-08 at 00.47.51.jpeg" data-gallery-caption="Stunning Elegance & Charm 💫">
+        <div class="polaroid-img-wrapper">
+          <img src="images/WhatsApp Image 2026-11-08 at 00.47.51.jpeg" alt="Vedanshee Photo 12" loading="lazy">
+        </div>
+        <div class="mt-3 text-center">
+          <h4 class="font-romantic text-2xl text-rose-100 font-bold drop-shadow">Stunning Elegance</h4>
+          <p class="text-xs text-rose-200/80 font-sans mt-1">"Grace in every step"</p>
+          <div class="mt-2 text-rosebright text-xs flex items-center justify-center gap-1 font-semibold">
+            <i class="fa-solid fa-heart animate-heartbeat"></i> <span>Loved Forever</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Photo 13 -->
+      <div class="polaroid-card" data-aos="fade-up" data-gallery-img="images/WhatsApp Image 2026-11-08 at 00.47.52 (1).jpeg" data-gallery-caption="Sweetest Moments 🌸">
+        <div class="polaroid-img-wrapper">
+          <img src="images/WhatsApp Image 2026-11-08 at 00.47.52 (1).jpeg" alt="Vedanshee Photo 13" loading="lazy">
+        </div>
+        <div class="mt-3 text-center">
+          <h4 class="font-romantic text-2xl text-rose-100 font-bold drop-shadow">Sweet Moments</h4>
+          <p class="text-xs text-rose-200/80 font-sans mt-1">"Memories etched in gold"</p>
+          <div class="mt-2 text-rosebright text-xs flex items-center justify-center gap-1 font-semibold">
+            <i class="fa-solid fa-heart animate-heartbeat"></i> <span>Loved Forever</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Photo 14 -->
+      <div class="polaroid-card" data-aos="fade-up" data-aos-delay="50" data-gallery-img="images/WhatsApp Image 2026-11-08 at 00.47.52 (2).jpeg" data-gallery-caption="Precious Heart 💗">
+        <div class="polaroid-img-wrapper">
+          <img src="images/WhatsApp Image 2026-11-08 at 00.47.52 (2).jpeg" alt="Vedanshee Photo 14" loading="lazy">
+        </div>
+        <div class="mt-3 text-center">
+          <h4 class="font-romantic text-2xl text-rose-100 font-bold drop-shadow">Precious Soul</h4>
+          <p class="text-xs text-rose-200/80 font-sans mt-1">"The sweetest girl in the world"</p>
+          <div class="mt-2 text-rosebright text-xs flex items-center justify-center gap-1 font-semibold">
+            <i class="fa-solid fa-heart animate-heartbeat"></i> <span>Loved Forever</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Photo 15 -->
+      <div class="polaroid-card" data-aos="fade-up" data-aos-delay="100" data-gallery-img="images/WhatsApp Image 2026-11-08 at 00.47.52.jpeg" data-gallery-caption="My Peace & Safe Haven 🕊️">
+        <div class="polaroid-img-wrapper">
+          <img src="images/WhatsApp Image 2026-11-08 at 00.47.52.jpeg" alt="Vedanshee Photo 15" loading="lazy">
+        </div>
+        <div class="mt-3 text-center">
+          <h4 class="font-romantic text-2xl text-rose-100 font-bold drop-shadow">My Safe Place</h4>
+          <p class="text-xs text-rose-200/80 font-sans mt-1">"With you, I am home"</p>
+          <div class="mt-2 text-rosebright text-xs flex items-center justify-center gap-1 font-semibold">
+            <i class="fa-solid fa-heart animate-heartbeat"></i> <span>Loved Forever</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Photo 16 -->
+      <div class="polaroid-card" data-aos="fade-up" data-aos-delay="150" data-gallery-img="images/WhatsApp Image 2026-11-08 at 00.47.53 (1).jpeg" data-gallery-caption="Simply Irresistible 🥰">
+        <div class="polaroid-img-wrapper">
+          <img src="images/WhatsApp Image 2026-11-08 at 00.47.53 (1).jpeg" alt="Vedanshee Photo 16" loading="lazy">
+        </div>
+        <div class="mt-3 text-center">
+          <h4 class="font-romantic text-2xl text-rose-100 font-bold drop-shadow">Irresistible</h4>
+          <p class="text-xs text-rose-200/80 font-sans mt-1">"Falling for you every day"</p>
+          <div class="mt-2 text-rosebright text-xs flex items-center justify-center gap-1 font-semibold">
+            <i class="fa-solid fa-heart animate-heartbeat"></i> <span>Loved Forever</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Photo 17 -->
+      <div class="polaroid-card" data-aos="fade-up" data-gallery-img="images/WhatsApp Image 2026-11-08 at 00.47.53 (2).jpeg" data-gallery-caption="Two Hearts, One Soul 🔗">
+        <div class="polaroid-img-wrapper">
+          <img src="images/WhatsApp Image 2026-11-08 at 00.47.53 (2).jpeg" alt="Vedanshee Photo 17" loading="lazy">
+        </div>
+        <div class="mt-3 text-center">
+          <h4 class="font-romantic text-2xl text-rose-100 font-bold drop-shadow">One Soul</h4>
+          <p class="text-xs text-rose-200/80 font-sans mt-1">"Connected beyond words"</p>
+          <div class="mt-2 text-rosebright text-xs flex items-center justify-center gap-1 font-semibold">
+            <i class="fa-solid fa-heart animate-heartbeat"></i> <span>Loved Forever</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Photo 18 -->
+      <div class="polaroid-card" data-aos="fade-up" data-aos-delay="50" data-gallery-img="images/WhatsApp Image 2026-11-08 at 00.47.53 (3).jpeg" data-gallery-caption="Golden Hour Glow ✨">
+        <div class="polaroid-img-wrapper">
+          <img src="images/WhatsApp Image 2026-11-08 at 00.47.53 (3).jpeg" alt="Vedanshee Photo 18" loading="lazy">
+        </div>
+        <div class="mt-3 text-center">
+          <h4 class="font-romantic text-2xl text-rose-100 font-bold drop-shadow">Golden Glow</h4>
+          <p class="text-xs text-rose-200/80 font-sans mt-1">"Shining brighter than stars"</p>
+          <div class="mt-2 text-rosebright text-xs flex items-center justify-center gap-1 font-semibold">
+            <i class="fa-solid fa-heart animate-heartbeat"></i> <span>Loved Forever</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Photo 19 -->
+      <div class="polaroid-card" data-aos="fade-up" data-aos-delay="100" data-gallery-img="images/WhatsApp Image 2026-11-08 at 00.47.53.jpeg" data-gallery-caption="Love in Bloom 🌺">
+        <div class="polaroid-img-wrapper">
+          <img src="images/WhatsApp Image 2026-11-08 at 00.47.53.jpeg" alt="Vedanshee Photo 19" loading="lazy">
+        </div>
+        <div class="mt-3 text-center">
+          <h4 class="font-romantic text-2xl text-rose-100 font-bold drop-shadow">In Bloom</h4>
+          <p class="text-xs text-rose-200/80 font-sans mt-1">"More lovely every day"</p>
+          <div class="mt-2 text-rosebright text-xs flex items-center justify-center gap-1 font-semibold">
+            <i class="fa-solid fa-heart animate-heartbeat"></i> <span>Loved Forever</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Photo 20 -->
+      <div class="polaroid-card" data-aos="fade-up" data-aos-delay="150" data-gallery-img="images/WhatsApp Image 2026-11-08 at 00.47.54 (1).jpeg" data-gallery-caption="My Guiding Star 🌟">
+        <div class="polaroid-img-wrapper">
+          <img src="images/WhatsApp Image 2026-11-08 at 00.47.54 (1).jpeg" alt="Vedanshee Photo 20" loading="lazy">
+        </div>
+        <div class="mt-3 text-center">
+          <h4 class="font-romantic text-2xl text-rose-100 font-bold drop-shadow">Guiding Star</h4>
+          <p class="text-xs text-rose-200/80 font-sans mt-1">"Leading me to joy"</p>
+          <div class="mt-2 text-rosebright text-xs flex items-center justify-center gap-1 font-semibold">
+            <i class="fa-solid fa-heart animate-heartbeat"></i> <span>Loved Forever</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Photo 21 -->
+      <div class="polaroid-card" data-aos="fade-up" data-gallery-img="images/WhatsApp Image 2026-11-08 at 00.47.54.jpeg" data-gallery-caption="Forever & Always Mine, Vedanshee 💍❤️">
+        <div class="polaroid-img-wrapper">
+          <img src="images/WhatsApp Image 2026-11-08 at 00.47.54.jpeg" alt="Vedanshee Photo 21" loading="lazy">
+        </div>
+        <div class="mt-3 text-center">
+          <h4 class="font-romantic text-2xl text-rose-100 font-bold drop-shadow">Forever Mine</h4>
+          <p class="text-xs text-rose-200/80 font-sans mt-1">"My heart, my queen, my love"</p>
+          <div class="mt-2 text-rosebright text-xs flex items-center justify-center gap-1 font-semibold">
+            <i class="fa-solid fa-heart animate-heartbeat"></i> <span>Loved Forever</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       SECTION 5: Cinema Theatre - Our Special Video
+       ========================================================================= -->
+  <section id="video-section" class="py-24 px-4 relative z-10">
+    <div class="max-w-4xl mx-auto text-center mb-16" data-aos="fade-up">
+      <span class="text-rosebright uppercase text-xs tracking-widest font-bold">A Special Moment In Motion</span>
+      <h2 class="text-4xl md:text-6xl font-romantic text-shimmer mt-2">Our Video Premiere</h2>
+      <p class="text-rose-200/80 text-sm md:text-base mt-2">A moment frozen in time that makes my heart flutter every time I watch it</p>
+    </div>
+
+    <div class="max-w-3xl mx-auto" data-aos="zoom-in" data-aos-duration="1000">
+      <div class="video-cinema-box relative bg-black aspect-[9/16] sm:aspect-video flex items-center justify-center shadow-2xl">
+        
+        <!-- Video Element (Brightened & Crisp) -->
+        <video id="featured-video" class="w-full h-full object-cover filter brightness-120 contrast-108 saturate-112" loop playsinline>
+          <source src="images/WhatsApp Video 2026-11-08 at 00.38.24.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+
+        <!-- Big Play Button Overlay -->
+        <button id="video-play-overlay" class="absolute z-20 w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-rosebright/90 text-white flex items-center justify-center text-3xl shadow-2xl transition-all hover:scale-110 hover:bg-rosebright border-4 border-white/50 backdrop-blur-md" title="Play Video">
+          <i class="fa-solid fa-play ml-1"></i>
+        </button>
+
+        <!-- Video Bottom Controls Bar -->
+        <div class="absolute bottom-4 left-4 right-4 z-20 flex items-center justify-between pointer-events-auto">
+          <span class="text-xs sm:text-sm font-romantic text-rose-200 text-lg bg-black/60 px-3 py-1 rounded-full backdrop-blur-md">
+            Vedanshee (Vedu) ❤️
+          </span>
+          <div class="flex items-center gap-2">
+            <button id="video-brightness-toggle" class="bg-black/60 hover:bg-amber-500 px-3 py-1.5 rounded-full text-xs text-white backdrop-blur-md transition-colors flex items-center gap-1.5 border border-white/20">
+              <i class="fa-regular fa-sun"></i> Boost Brightness ☀️
+            </button>
+            <button id="video-mute-toggle" class="bg-black/60 hover:bg-rosebright px-3 py-1.5 rounded-full text-xs text-white backdrop-blur-md transition-colors flex items-center gap-1.5 border border-white/20">
+              <i class="fa-solid fa-volume-high"></i> Toggle Sound
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-6 text-center">
+        <p class="text-rose-200/90 font-playfair italic text-lg sm:text-xl">
+          "If I could capture every moment with you and hold it in a bottle, I would swim in it forever."
+        </p>
       </div>
     </div>
   </section>
 
-  <!-- Section 5: The Gallery -->
-  <section class="my-16 md:my-24">
-    <h2 class="text-4xl md:text-5xl font-anime text-center mb-12" data-aos="fade-up">The Y.V.A. Collection</h2>
-    <p class="text-center text-lg -mt-8 mb-12">(Your Very-own Adventures)</p>
-    <div id="lightgallery" class="grid grid-cols-2 md:grid-cols-4 gap-4">
-      <a href="img/1.png" data-aos="zoom-in" class="block w-full h-48 md:h-64">
-        <img src="img/1.png" class="rounded-lg shadow-lg hover:scale-105 transition-transform duration-300 w-full h-full object-cover border-4 border-white" alt="Memory 1">
-      </a>
-      <a href="img/2.png" data-aos="zoom-in" data-aos-delay="100" class="block w-full h-48 md:h-64">
-        <img src="img/2.png" class="rounded-lg shadow-lg hover:scale-105 transition-transform duration-300 w-full h-full object-cover border-4 border-white" alt="Memory 2">
-      </a>
-      <a href="img/3.png" data-aos="zoom-in" data-aos-delay="200" class="block w-full h-48 md:h-64">
-        <img src="img/3.png" class="rounded-lg shadow-lg hover:scale-105 transition-transform duration-300 w-full h-full object-cover border-4 border-white" alt="Memory 3">
-      </a>
-      <a href="img/4.png" data-aos="zoom-in" data-aos-delay="300" class="block w-full h-48 md:h-64">
-        <img src="img/4.png" class="rounded-lg shadow-lg hover:scale-105 transition-transform duration-300 w-full h-full object-cover border-4 border-white" alt="Memory 4">
-      </a>
-      <!-- Second Row of Photos -->
-      <a href="img/5.png" data-aos="zoom-in" data-aos-delay="400" class="block w-full h-48 md:h-64">
-        <img src="img/5.png" class="rounded-lg shadow-lg hover:scale-105 transition-transform duration-300 w-full h-full object-cover border-4 border-white" alt="Memory 5">
-      </a>
-      <a href="img/6.png" data-aos="zoom-in" data-aos-delay="500" class="block w-full h-48 md:h-64">
-        <img src="img/6.png" class="rounded-lg shadow-lg hover:scale-105 transition-transform duration-300 w-full h-full object-cover border-4 border-white" alt="Memory 6">
-      </a>
-      <a href="img/7.png" data-aos="zoom-in" data-aos-delay="600" class="block w-full h-48 md:h-64">
-        <img src="img/7.png" class="rounded-lg shadow-lg hover:scale-105 transition-transform duration-300 w-full h-full object-cover border-4 border-white" alt="Memory 7">
-      </a>
-      <a href="img/8.png" data-aos="zoom-in" data-aos-delay="700" class="block w-full h-48 md:h-64">
-        <img src="img/8.png" class="rounded-lg shadow-lg hover:scale-105 transition-transform duration-300 w-full h-full object-cover border-4 border-white" alt="Memory 8">
-      </a>
-      <!-- Third Row of Photos -->
-      <a href="img/9.png" data-aos="zoom-in" data-aos-delay="800" class="block w-full h-48 md:h-64">
-        <img src="img/9.png" class="rounded-lg shadow-lg hover:scale-105 transition-transform duration-300 w-full h-full object-cover border-4 border-white" alt="Memory 9">
-      </a>
-      <a href="img/10.png" data-aos="zoom-in" data-aos-delay="900" class="block w-full h-48 md:h-64">
-        <img src="img/10.png" class="rounded-lg shadow-lg hover:scale-105 transition-transform duration-300 w-full h-full object-cover border-4 border-white" alt="Memory 10">
-      </a>
-      <a href="img/11.png" data-aos="zoom-in" data-aos-delay="1000" class="block w-full h-48 md:h-64">
-        <img src="img/11.png" class="rounded-lg shadow-lg hover:scale-105 transition-transform duration-300 w-full h-full object-cover border-4 border-white" alt="Memory 11">
-      </a>
-      <a href="img/12.png" data-aos="zoom-in" data-aos-delay="1100" class="block w-full h-48 md:h-64">
-        <img src="img/12.png" class="rounded-lg shadow-lg hover:scale-105 transition-transform duration-300 w-full h-full object-cover border-4 border-white" alt="Memory 12">
-      </a>
+  <!-- =========================================================================
+       SECTION 6: "Why I Love You, Vedanshee" (3D Flip Cards)
+       ========================================================================= -->
+  <section id="reasons-section" class="py-24 px-4 relative z-10">
+    <div class="max-w-4xl mx-auto text-center mb-16" data-aos="fade-up">
+      <span class="text-rosebright uppercase text-xs tracking-widest font-bold">Endless Adoration</span>
+      <h2 class="text-4xl md:text-6xl font-romantic text-shimmer mt-2">Reasons Why I Love You</h2>
+      <p class="text-rose-200/80 text-sm md:text-base mt-2">Hover or tap any card to flip it and read what my heart says</p>
+    </div>
+
+    <!-- 6 3D Flip Cards Grid -->
+    <div class="max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+      
+      <!-- Card 1 -->
+      <div class="flip-card-box" data-aos="fade-up">
+        <div class="flip-card-inner">
+          <div class="flip-card-front">
+            <div class="w-16 h-16 rounded-full bg-rose-500/20 text-rosebright flex items-center justify-center text-2xl mb-4 border border-rose-500/30">
+              <i class="fa-solid fa-sun text-amber-300"></i>
+            </div>
+            <h3 class="font-romantic text-3xl text-rose-200">Your Radiant Smile</h3>
+            <p class="text-xs text-rose-300/70 mt-2 font-mono uppercase tracking-wider">Tap to flip &hearts;</p>
+          </div>
+          <div class="flip-card-back">
+            <i class="fa-solid fa-heart text-amber-300 text-3xl mb-3"></i>
+            <h4 class="font-bold text-lg mb-2 text-rose-100">Light in the Dark</h4>
+            <p class="text-sm text-rose-100/90 leading-relaxed font-light">
+              Because your smile can brighten even the hardest and most exhausting days. Just one glance at your happy face cures everything in my world.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 2 -->
+      <div class="flip-card-box" data-aos="fade-up" data-aos-delay="100">
+        <div class="flip-card-inner">
+          <div class="flip-card-front">
+            <div class="w-16 h-16 rounded-full bg-rose-500/20 text-rosebright flex items-center justify-center text-2xl mb-4 border border-rose-500/30">
+              <i class="fa-solid fa-hand-holding-heart text-rosebright"></i>
+            </div>
+            <h3 class="font-romantic text-3xl text-rose-200">Your Gentle Heart</h3>
+            <p class="text-xs text-rose-300/70 mt-2 font-mono uppercase tracking-wider">Tap to flip &hearts;</p>
+          </div>
+          <div class="flip-card-back">
+            <i class="fa-solid fa-heart text-amber-300 text-3xl mb-3"></i>
+            <h4 class="font-bold text-lg mb-2 text-rose-100">Pure Kindness</h4>
+            <p class="text-sm text-rose-100/90 leading-relaxed font-light">
+              The gentle, caring, and thoughtful way you treat everyone around you. You have a heart of pure gold, and being loved by you is my life's greatest honor.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 3 -->
+      <div class="flip-card-box" data-aos="fade-up" data-aos-delay="200">
+        <div class="flip-card-inner">
+          <div class="flip-card-front">
+            <div class="w-16 h-16 rounded-full bg-rose-500/20 text-rosebright flex items-center justify-center text-2xl mb-4 border border-rose-500/30">
+              <i class="fa-solid fa-music text-purple-300"></i>
+            </div>
+            <h3 class="font-romantic text-3xl text-rose-200">The Way You Laugh</h3>
+            <p class="text-xs text-rose-300/70 mt-2 font-mono uppercase tracking-wider">Tap to flip &hearts;</p>
+          </div>
+          <div class="flip-card-back">
+            <i class="fa-solid fa-heart text-amber-300 text-3xl mb-3"></i>
+            <h4 class="font-bold text-lg mb-2 text-rose-100">Sweetest Melody</h4>
+            <p class="text-sm text-rose-100/90 leading-relaxed font-light">
+              Your genuine, adorable laugh is the sweetest song I have ever heard. Making you giggle is my absolute favorite mission in life.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 4 -->
+      <div class="flip-card-box" data-aos="fade-up">
+        <div class="flip-card-inner">
+          <div class="flip-card-front">
+            <div class="w-16 h-16 rounded-full bg-rose-500/20 text-rosebright flex items-center justify-center text-2xl mb-4 border border-rose-500/30">
+              <i class="fa-solid fa-comments text-cyan-300"></i>
+            </div>
+            <h3 class="font-romantic text-3xl text-rose-200">Our Silent Connection</h3>
+            <p class="text-xs text-rose-300/70 mt-2 font-mono uppercase tracking-wider">Tap to flip &hearts;</p>
+          </div>
+          <div class="flip-card-back">
+            <i class="fa-solid fa-heart text-amber-300 text-3xl mb-3"></i>
+            <h4 class="font-bold text-lg mb-2 text-rose-100">Soul Connection</h4>
+            <p class="text-sm text-rose-100/90 leading-relaxed font-light">
+              How you can look at me across the room and know exactly what I am thinking without either of us uttering a single syllable.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 5 -->
+      <div class="flip-card-box" data-aos="fade-up" data-aos-delay="100">
+        <div class="flip-card-inner">
+          <div class="flip-card-front">
+            <div class="w-16 h-16 rounded-full bg-rose-500/20 text-rosebright flex items-center justify-center text-2xl mb-4 border border-rose-500/30">
+              <i class="fa-solid fa-house-chimney-heart text-emerald-300"></i>
+            </div>
+            <h3 class="font-romantic text-3xl text-rose-200">You Are My Safe Haven</h3>
+            <p class="text-xs text-rose-300/70 mt-2 font-mono uppercase tracking-wider">Tap to flip &hearts;</p>
+          </div>
+          <div class="flip-card-back">
+            <i class="fa-solid fa-heart text-amber-300 text-3xl mb-3"></i>
+            <h4 class="font-bold text-lg mb-2 text-rose-100">My Comfort</h4>
+            <p class="text-sm text-rose-100/90 leading-relaxed font-light">
+              In your arms, I can be 100% myself with no filters. You never judge, you always listen, and with you, my heart is completely at peace.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 6 -->
+      <div class="flip-card-box" data-aos="fade-up" data-aos-delay="200">
+        <div class="flip-card-inner">
+          <div class="flip-card-front">
+            <div class="w-16 h-16 rounded-full bg-rose-500/20 text-rosebright flex items-center justify-center text-2xl mb-4 border border-rose-500/30">
+              <i class="fa-solid fa-crown text-amber-400"></i>
+            </div>
+            <h3 class="font-romantic text-3xl text-rose-200">Because You Are Vedanshee</h3>
+            <p class="text-xs text-rose-300/70 mt-2 font-mono uppercase tracking-wider">Tap to flip &hearts;</p>
+          </div>
+          <div class="flip-card-back">
+            <i class="fa-solid fa-heart text-amber-300 text-3xl mb-3"></i>
+            <h4 class="font-bold text-lg mb-2 text-rose-100">Simply You</h4>
+            <p class="text-sm text-rose-100/90 leading-relaxed font-light">
+              I love you simply for being wonderfully, undeniably, unconditionally YOU. There is not a single person on this earth who could ever compare.
+            </p>
+          </div>
+        </div>
+      </div>
+
     </div>
   </section>
 
-    <!-- Section 6: Finale -->
-    <section class="my-16 md:my-24" data-aos="fade-up">
-        <h2 class="text-4xl md:text-5xl font-anime text-center mb-4">Happy Birthday [Enter Name of your loved one]</h2>
-        <div class="max-w-4xl mx-auto rounded-lg shadow-2xl overflow-hidden bg-navy">
-    </section>
+  <!-- =========================================================================
+       SECTION 7: Interactive Love Trivia Quiz (Himanshu & Vedu / Vishwa)
+       ========================================================================= -->
+  <section id="quiz-section" class="py-24 px-4 relative z-10">
+    <div class="max-w-4xl mx-auto text-center mb-14" data-aos="fade-up">
+      <span class="text-amber-300 uppercase text-xs tracking-widest font-bold">Himanshu &hearts; Vedu Trivia</span>
+      <h2 class="text-4xl md:text-6xl font-romantic text-shimmer mt-2">How Well Do You Know Our Love?</h2>
+      <p class="text-rose-200/80 text-sm md:text-base mt-2">Let's see if my sweet Vedu (Vishwa) remembers our most special memories!</p>
+    </div>
 
-</main>
+    <!-- Quiz Box Container -->
+    <div class="max-w-2xl mx-auto glass-card-rose p-6 sm:p-10 rounded-3xl border border-rose-400/40 shadow-2xl relative" data-aos="zoom-in">
+      
+      <!-- Progress Bar -->
+      <div class="w-full bg-black/40 h-2.5 rounded-full overflow-hidden mb-6 border border-white/10">
+        <div id="quiz-progress-bar" class="quiz-progress-fill h-full bg-gradient-to-r from-rosebright to-amber-400 rounded-full" style="width: 25%;"></div>
+      </div>
 
-<!-- Footer -->
-<footer class="bg-navy text-white p-8 text-center">
-  <p>Enjoy your day to the fullest.</p>
-  <p class="text-sm opacity-70 mt-2">Hope you liked it...</p>
-</footer>
+      <!-- Question Card Content -->
+      <div id="quiz-content-card">
+        <div class="flex items-center justify-between text-xs text-rose-300 uppercase tracking-widest font-semibold mb-4">
+          <span id="quiz-step-counter">Question 1 of 4</span>
+          <span class="text-amber-300 flex items-center gap-1"><i class="fa-solid fa-heart animate-heartbeat text-rosebright"></i> Himanshu &hearts; Vedu</span>
+        </div>
 
-<!-- These scripts are for the animations and photo gallery -->
-<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.7.1/lightgallery.min.js"></script>
+        <h3 id="quiz-question-title" class="font-playfair text-xl sm:text-2xl text-rose-100 font-semibold mb-6 min-h-[50px] leading-snug">
+          Where did we go for our very first date together? 🎬❤️
+        </h3>
 
-<!-- Link to your new external JavaScript file -->
-<script src="script.js"></script>
+        <!-- Options Container (Populated by script.js) -->
+        <div id="quiz-options-container" class="space-y-3.5"></div>
+
+        <!-- Feedback Area -->
+        <div id="quiz-feedback" class="text-center text-sm font-medium min-h-[28px] mt-4"></div>
+      </div>
+
+      <!-- Grand Victory Card (Shown after all 3 correct) -->
+      <div id="quiz-victory-card" class="hidden text-center py-6">
+        <div class="w-20 h-20 rounded-full bg-gradient-to-tr from-amber-400 via-rosebright to-purple-600 mx-auto flex items-center justify-center text-4xl text-white shadow-2xl mb-6 animate-heartbeat">
+          <i class="fa-solid fa-crown"></i>
+        </div>
+
+        <span class="text-xs uppercase tracking-widest text-amber-300 font-bold">100% Score &bull; Love Certified</span>
+        <h3 class="font-romantic text-4xl sm:text-5xl text-shimmer mt-2 mb-4">
+          You Remember Everything, My Vedu!
+        </h3>
+
+        <div class="glass-card p-6 rounded-2xl border border-rose-400/30 text-rose-100 space-y-3 my-6 text-sm sm:text-base leading-relaxed">
+          <p class="font-romantic text-3xl text-rose-200">
+            "Himanshu loves you very, very much!"
+          </p>
+          <p>
+            You are my greatest happiness, my partner in every adventure, and the girl of my dreams.
+            Happy 23rd Birthday my sweet <strong>Vedu (Vishwa)</strong>!
+          </p>
+          <p class="text-xs text-rose-300/80 uppercase tracking-widest font-mono">
+            Always &bull; Forever &bull; Just You & Me ❤️
+          </p>
+        </div>
+
+        <div class="flex flex-wrap items-center justify-center gap-4 mt-6">
+          <button id="himanshu-vedu-love-btn" class="bg-gradient-to-r from-rosebright via-rose-600 to-purple-600 hover:scale-105 transition-all text-white font-bold px-7 py-3 rounded-full shadow-xl flex items-center gap-2">
+            <i class="fa-solid fa-heart text-amber-300 animate-heartbeat"></i> Himanshu &hearts; Vedu Forever
+          </button>
+          <button id="restart-quiz-btn" class="glass-card hover:bg-white/10 text-rose-200 hover:text-white px-5 py-3 rounded-full text-xs uppercase tracking-wider font-semibold transition-all border border-white/20">
+            <i class="fa-solid fa-rotate-left mr-1"></i> Play Again
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       SECTION 8: Interactive Love Meter (Exceeding Infinity!)
+       ========================================================================= -->
+  <section class="py-24 px-4 relative z-10">
+    <div class="max-w-3xl mx-auto glass-card-rose p-8 sm:p-12 rounded-3xl text-center shadow-2xl border border-rose-400/40" data-aos="zoom-in">
+      <span class="text-amber-300 uppercase text-xs tracking-widest font-bold">Himanshu's Love Meter &bull; Sent With All My Heart</span>
+      <h2 class="text-3xl sm:text-5xl font-romantic text-shimmer mt-2">How Much Does Himanshu Love Vedanshee (Vedu)?</h2>
+      <p class="text-rose-200/80 text-xs sm:text-sm mt-1">From Himanshu to his beloved Vedu (Vishwa)</p>
+      
+      <div class="my-8">
+        <div id="love-meter-value" class="text-5xl sm:text-6xl font-extrabold text-rose-200 font-mono tracking-tight animate-heartbeat">
+          100%
+        </div>
+        <p id="love-meter-message" class="text-rose-100/90 font-medium text-sm sm:text-base mt-3 min-h-[30px]">
+          100% - Himanshu loves Vedu with all his heart! ❤️
+        </p>
+      </div>
+
+      <!-- Slider Control -->
+      <div class="max-w-md mx-auto my-6">
+        <input id="love-meter-slider" type="range" min="100" max="99999" value="100" class="w-full accent-rosebright cursor-pointer h-3 rounded-lg bg-black/40">
+        <div class="flex justify-between text-xs text-rose-300/70 mt-2 font-mono">
+          <span>100%</span>
+          <span>1,000%</span>
+          <span>10,000%</span>
+          <span>&infin; Infinity</span>
+        </div>
+      </div>
+
+      <!-- Boost to Infinity Button -->
+      <button id="love-boost-btn" class="mt-4 bg-gradient-to-r from-amber-400 via-rosebright to-purple-600 hover:scale-105 transition-all text-white font-bold text-sm sm:text-base px-8 py-3.5 rounded-full shadow-xl flex items-center gap-2 mx-auto">
+        <i class="fa-solid fa-rocket text-amber-200"></i> Boost Himanshu's Love to Infinity & Beyond!
+      </button>
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       SECTION 9: Triple Celebration - Birthday, New Year & "Never Skip Me" Love Vows
+       ========================================================================= -->
+  <section id="wishes-section" class="py-24 px-4 relative z-10">
+    <div class="max-w-4xl mx-auto text-center mb-16" data-aos="fade-up">
+      <span class="text-amber-300 uppercase text-xs tracking-widest font-bold">Triple Celebration &bull; Birthday &bull; New Year &bull; Forever Love</span>
+      <h2 class="text-4xl md:text-6xl font-romantic text-shimmer mt-2">Happy Birthday & Happy New Year, My Love!</h2>
+      <p class="text-rose-200/80 text-sm md:text-base mt-2">Before anyone else in the whole world, Himanshu is here to wish his Vedu</p>
+    </div>
+
+    <div class="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8">
+      
+      <!-- New Year Wish Card (First to Wish Her!) -->
+      <div class="glass-card-rose p-8 rounded-3xl border border-amber-400/40 shadow-2xl relative overflow-hidden flex flex-col justify-between" data-aos="fade-right">
+        <div class="absolute -top-10 -right-10 w-36 h-36 bg-amber-400/20 rounded-full blur-2xl pointer-events-none"></div>
+
+        <div>
+          <div class="flex items-center gap-3 mb-4">
+            <div class="w-12 h-12 rounded-2xl bg-amber-400/20 text-amber-300 flex items-center justify-center text-2xl border border-amber-400/30">
+              <i class="fa-solid fa-champagne-glasses"></i>
+            </div>
+            <div>
+              <span class="text-xs uppercase tracking-widest text-amber-300 font-bold">First To Wish You</span>
+              <h3 class="text-2xl font-romantic text-rose-100">Happy New Year, My Vedu!</h3>
+            </div>
+          </div>
+
+          <p class="text-rose-100/90 leading-relaxed font-light text-base mb-4">
+            Before any fireworks light up the sky, before anyone else says a single word, I wanted to be the <strong class="text-amber-300 font-semibold">very first</strong> to wish you a blessed, sparkling, and magical New Year!
+          </p>
+
+          <!-- "Never Skip Me" Romantic Vow -->
+          <div class="bg-black/40 backdrop-blur-md p-4 rounded-2xl border border-rose-500/30 text-left my-4">
+            <div class="flex items-center gap-2 text-rosebright font-bold text-sm mb-1">
+              <i class="fa-solid fa-heart animate-heartbeat"></i>
+              <span>My Only New Year Promise to You:</span>
+            </div>
+            <p class="text-rose-200 text-sm italic font-playfair">
+              "Promise me that in this new year, and in all the years yet to come, you will <strong>NEVER SKIP ME</strong>. Never let go of our bond, never skip our hugs, and never walk away from my heart. You and me, side by side, forever and always."
+            </p>
+          </div>
+        </div>
+
+        <div class="mt-4 pt-4 border-t border-rose-400/20 flex items-center justify-between text-xs text-rose-300/80">
+          <span>Saal Mubarak &bull; Bestu Varas</span>
+          <span class="text-amber-300 font-bold font-romantic text-xl">Himanshu &hearts; Vishwa</span>
+        </div>
+      </div>
+
+      <!-- 23rd Birthday Wishes Card -->
+      <div class="glass-card-rose p-8 rounded-3xl border border-rose-400/40 shadow-2xl relative overflow-hidden flex flex-col justify-between" data-aos="fade-left">
+        <div class="absolute -top-10 -right-10 w-36 h-36 bg-rose-500/20 rounded-full blur-2xl pointer-events-none"></div>
+
+        <div>
+          <div class="flex items-center gap-3 mb-4">
+            <div class="w-12 h-12 rounded-2xl bg-rose-500/20 text-rosebright flex items-center justify-center text-2xl border border-rose-400/30">
+              <i class="fa-solid fa-cake-candles"></i>
+            </div>
+            <div>
+              <span class="text-xs uppercase tracking-widest text-rosebright font-bold">Born: 10/11/2003</span>
+              <h3 class="text-2xl font-romantic text-rose-100">Happy 23rd Birthday, Queen!</h3>
+            </div>
+          </div>
+
+          <p class="text-rose-100/90 leading-relaxed font-light text-base mb-4">
+            Today marks 23 incredible years since the universe was gifted with your beautiful soul. You bring so much joy, kindness, and warmth wherever you step.
+          </p>
+
+          <div class="space-y-2.5 text-sm text-rose-200/90 my-4">
+            <div class="flex items-center gap-2.5">
+              <i class="fa-solid fa-star text-amber-300 text-xs"></i>
+              <span>May all your sweet dreams turn into beautiful reality.</span>
+            </div>
+            <div class="flex items-center gap-2.5">
+              <i class="fa-solid fa-star text-amber-300 text-xs"></i>
+              <span>May good health, pure peace, and big smiles surround you.</span>
+            </div>
+            <div class="flex items-center gap-2.5">
+              <i class="fa-solid fa-star text-amber-300 text-xs"></i>
+              <span>Himanshu will always be your strongest shelter and biggest fan.</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-4 pt-4 border-t border-rose-400/20 flex items-center justify-between text-xs text-rose-300/80">
+          <span>Celebrating 23 Magical Years</span>
+          <span class="text-rosebright font-bold font-romantic text-xl">My Angel Vedu</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       SECTION 10: The Grand Proposal & Romantic Climax
+       ========================================================================= -->
+  <section id="finale-section" class="py-28 px-4 text-center relative z-10">
+    <div class="max-w-4xl mx-auto" data-aos="fade-up">
+      <div class="w-24 h-24 rounded-full bg-gradient-to-tr from-rosebright to-amber-400 mx-auto flex items-center justify-center text-4xl text-white shadow-2xl mb-8 animate-heartbeat">
+        <i class="fa-solid fa-heart"></i>
+      </div>
+
+      <div class="inline-flex items-center gap-2 px-4 py-1 rounded-full bg-rose-500/20 text-amber-300 text-xs sm:text-sm font-semibold uppercase tracking-wider mb-4 border border-rose-500/30">
+        🎂 Happy 23rd Birthday &bull; 🎆 Happy New Year &bull; 💖 Endless Love
+      </div>
+
+      <h2 class="text-4xl sm:text-6xl md:text-7xl font-romantic text-shimmer leading-tight">
+        Vedanshee, You Are Himanshu's Entire World
+      </h2>
+
+      <p class="font-romantic text-2xl sm:text-3xl text-rose-200 mt-2">
+        My Vedu &hearts; My Vishwa
+      </p>
+
+      <p class="font-playfair italic text-lg sm:text-2xl text-rose-100/90 mt-4 max-w-2xl mx-auto">
+        "I loved you yesterday, I love you still, I always have, I always will. Through every year and every birthday, never skip me."
+      </p>
+
+      <div class="mt-12">
+        <button id="finale-surprise-btn" class="bg-gradient-to-r from-rosebright via-rose-600 to-purple-700 hover:from-rose-500 hover:to-purple-600 text-white font-bold text-base sm:text-xl px-10 py-5 rounded-full shadow-2xl hover:scale-110 transition-all border-2 border-white/40 flex items-center gap-3 mx-auto animate-float-slow">
+          <i class="fa-solid fa-gift text-amber-300"></i>
+          <span>Click For My Final Secret & Surprise ❤️</span>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="border-t border-rose-500/20 py-12 text-center text-rose-300/70 text-sm relative z-10 bg-black/40 backdrop-blur-md">
+    <p class="font-romantic text-3xl text-rose-200 mb-2">Made with all of Himanshu's heart for Vedanshee</p>
+    <p class="text-xs uppercase tracking-widest text-rose-400 font-sans">Happy 23rd Birthday &bull; Happy New Year &bull; Forever & Always Vedu</p>
+  </footer>
+
+  <!-- =========================================================================
+       POPUP MODALS & LIGHTBOX
+       ========================================================================= -->
+
+  <!-- Fullscreen Photo Lightbox Modal -->
+  <div id="romantic-lightbox" class="lightbox-modal fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-8 bg-black/95 backdrop-blur-xl">
+    <div class="lightbox-backdrop absolute inset-0"></div>
+
+    <!-- Close Button -->
+    <button id="lightbox-close" class="absolute top-6 right-6 z-30 text-white/80 hover:text-white text-3xl transition-transform hover:scale-110" title="Close">
+      <i class="fa-solid fa-xmark"></i>
+    </button>
+
+    <!-- Prev & Next Navigation Buttons -->
+    <button id="lightbox-prev" class="absolute left-4 sm:left-8 z-30 w-12 h-12 rounded-full bg-white/10 hover:bg-rosebright text-white flex items-center justify-center text-xl transition-all hover:scale-110 border border-white/20">
+      <i class="fa-solid fa-chevron-left"></i>
+    </button>
+    <button id="lightbox-next" class="absolute right-4 sm:right-8 z-30 w-12 h-12 rounded-full bg-white/10 hover:bg-rosebright text-white flex items-center justify-center text-xl transition-all hover:scale-110 border border-white/20">
+      <i class="fa-solid fa-chevron-right"></i>
+    </button>
+
+    <!-- Modal Content -->
+    <div class="relative z-20 max-w-4xl max-h-[90vh] flex flex-col items-center">
+      <div class="relative rounded-2xl overflow-hidden shadow-2xl border-2 border-rose-500/40 max-h-[75vh]">
+        <img id="lightbox-img" src="" alt="Vedanshee Memory Enlarged" class="max-w-full max-h-[75vh] object-contain">
+      </div>
+      <div class="mt-4 flex items-center justify-between w-full max-w-md px-4 text-white">
+        <p id="lightbox-caption" class="font-romantic text-2xl text-rose-200"></p>
+        <button id="lightbox-heart-btn" class="bg-rose-500/20 hover:bg-rosebright px-3 py-1.5 rounded-full border border-rose-400/30 text-xs flex items-center gap-1.5 transition-all hover:scale-110">
+          <i class="fa-solid fa-heart text-rosebright hover:text-white"></i>
+          <span id="lightbox-heart-count">143</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Surprise Climax Modal (Birthday + New Year + Multi-Candle Ritual + Love Promise) -->
+  <div id="surprise-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-black/90 backdrop-blur-2xl">
+    <div class="glass-card-rose max-w-xl w-full p-6 sm:p-10 rounded-3xl text-center relative border border-rose-400/50 shadow-2xl animate-float-slow max-h-[92vh] overflow-y-auto">
+      
+      <!-- Audio Element for Himanshu's Special Song / Voice Note -->
+      <audio id="surprise-audio" src="WhatsApp Ptt 2026-11-08 at 01.12.05.ogg" preload="auto"></audio>
+
+      <button id="surprise-modal-close" class="absolute top-4 right-4 text-white/80 hover:text-white text-2xl transition-transform hover:scale-110" title="Close">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+
+      <!-- PHASE 1: The Interactive 4-Candle Cake Blowout Ritual -->
+      <div id="modal-candle-ritual" class="transition-all duration-500">
+        <!-- Romantic Badges -->
+        <div class="flex flex-wrap items-center justify-center gap-2 mb-3">
+          <span class="px-3 py-1 rounded-full bg-rose-500/20 border border-rose-400/30 text-rose-200 text-xs font-semibold">🎂 23rd Birthday Ritual</span>
+          <span class="px-3 py-1 rounded-full bg-emerald-500/20 border border-emerald-400/30 text-emerald-300 text-xs font-semibold animate-pulse"><i class="fa-solid fa-wand-magic-sparkles mr-1"></i> Auto-Blowing with Song</span>
+          <span class="px-3 py-1 rounded-full bg-amber-500/20 border border-amber-400/30 text-amber-300 text-xs font-semibold">🎆 Bestu Varas Wish</span>
+        </div>
+
+        <h3 class="font-romantic text-3xl sm:text-4xl text-shimmer mb-1">
+          Make a Wish & Watch the Candles Blow! 🎂
+        </h3>
+        
+        <p class="text-rose-200/90 text-xs sm:text-sm font-light mb-5">
+          Listen to Himanshu's special track as the 4 candles automatically blow out with the music! You can also tap any candle directly. ✨
+        </p>
+
+        <!-- 4-Candle Party Cake -->
+        <div class="party-cake-wrapper mb-5">
+          <!-- 4 Party Candles Row -->
+          <div class="party-candles-row">
+            <!-- Candle 1 -->
+            <div id="party-candle-1" class="party-candle candle-pink" data-candle-idx="0" title="Tap to blow Candle 1">
+              <div class="candle-wick"></div>
+              <div id="party-flame-1" class="candle-flame party-flame"></div>
+              <div id="party-smoke-1" class="smoke-puff"></div>
+              <span class="party-candle-label">1</span>
+            </div>
+
+            <!-- Candle 2 -->
+            <div id="party-candle-2" class="party-candle candle-purple" data-candle-idx="1" title="Tap to blow Candle 2">
+              <div class="candle-wick"></div>
+              <div id="party-flame-2" class="candle-flame party-flame"></div>
+              <div id="party-smoke-2" class="smoke-puff"></div>
+              <span class="party-candle-label">2</span>
+            </div>
+
+            <!-- Candle 3 -->
+            <div id="party-candle-3" class="party-candle candle-gold" data-candle-idx="2" title="Tap to blow Candle 3">
+              <div class="candle-wick"></div>
+              <div id="party-flame-3" class="candle-flame party-flame"></div>
+              <div id="party-smoke-3" class="smoke-puff"></div>
+              <span class="party-candle-label">3</span>
+            </div>
+
+            <!-- Candle 4 (Grand Finale Candle) -->
+            <div id="party-candle-4" class="party-candle candle-crimson" data-candle-idx="3" title="Tap to blow Candle 4">
+              <div class="candle-wick"></div>
+              <div id="party-flame-4" class="candle-flame party-flame"></div>
+              <div id="party-smoke-4" class="smoke-puff"></div>
+              <span class="party-candle-label">4</span>
+            </div>
+          </div>
+
+          <!-- Cake Tiers with Party Frosting -->
+          <div class="party-cake-tier-top">
+            <div class="cake-drips">
+              <span></span><span></span><span></span><span></span><span></span>
+            </div>
+          </div>
+          <div class="party-cake-tier-base">
+            <div class="cake-decorations">
+              <span>💖</span><span>✨</span><span>🎂</span><span>💖</span>
+            </div>
+          </div>
+          <div class="party-cake-plate"></div>
+        </div>
+
+        <!-- Audio Indicator -->
+        <div id="modal-audio-badge" class="hidden mb-4 inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-rose-500/20 border border-rose-400/30 text-rose-200 text-xs animate-pulse">
+          <i class="fa-solid fa-music text-amber-300 animate-bounce"></i>
+          <span>Himanshu's Special Song Playing... 🎶</span>
+        </div>
+
+        <!-- Status & Candle Counter -->
+        <div class="mb-4">
+          <span id="candles-status-badge" class="px-4 py-1.5 rounded-full bg-rose-950/70 border border-rose-400/30 text-xs sm:text-sm text-rose-200 font-semibold shadow-inner">
+            🎵 Auto-Blowing Candles with Himanshu's Song... ✨
+          </span>
+        </div>
+
+        <!-- Interactive Blow Button -->
+        <button id="modal-blow-btn" class="bg-gradient-to-r from-amber-400 via-rosebright to-purple-600 hover:scale-105 active:scale-95 transition-all text-white font-bold text-sm sm:text-base px-8 py-4 rounded-full shadow-2xl border border-white/30 flex items-center justify-center gap-2.5 mx-auto">
+          <i class="fa-solid fa-wind text-amber-200 animate-pulse"></i>
+          <span id="modal-blow-btn-text">🌬️ Auto-Blowing with Song... (Or Tap Here) 🎂</span>
+        </button>
+      </div>
+
+      <!-- PHASE 2: The Grand Final Love Message (Revealed after all candles blow out) -->
+      <div id="modal-final-message" class="hidden transition-all duration-700">
+        <!-- Romantic Badges -->
+        <div class="flex flex-wrap items-center justify-center gap-2 mb-3">
+          <span class="px-3 py-1 rounded-full bg-rose-500/20 border border-rose-400/30 text-rose-200 text-xs font-semibold">🎂 Happy 23rd Birthday</span>
+          <span class="px-3 py-1 rounded-full bg-amber-500/20 border border-amber-400/30 text-amber-300 text-xs font-semibold">🎆 Happy New Year</span>
+        </div>
+
+        <div class="text-5xl sm:text-6xl text-rosebright mb-2 animate-heartbeat">
+          <i class="fa-solid fa-heart"></i>
+        </div>
+
+        <h3 class="font-romantic text-3xl sm:text-5xl text-shimmer mb-1">
+          Himanshu Loves You, My Vedu!
+        </h3>
+        
+        <p class="font-romantic text-xl sm:text-2xl text-amber-300 mb-4">
+          (Vedanshee &bull; Vishwa)
+        </p>
+
+        <div class="glass-card p-5 sm:p-7 rounded-2xl border border-rose-500/30 text-left text-rose-100 text-sm sm:text-base leading-relaxed space-y-3.5 mb-6 shadow-2xl">
+          <p class="text-base sm:text-lg">
+            🎉 <strong>To My Dearest Vedu</strong>, Happy 23rd Birthday and the Happiest New Year (Saal Mubarak / Bestu Varas)!
+          </p>
+          <p>
+            Before anyone else in the entire world, Himanshu is here to wish you first and hold you tight. You are the prettiest blessing that entered my life on 10th November, and every day with you feels like pure heaven.
+          </p>
+          <p class="italic text-rose-200 font-playfair border-l-4 border-rosebright pl-3.5 py-1.5 bg-rose-500/10 rounded-r-xl">
+            "Promise me you will <strong>NEVER SKIP ME</strong>. Through every new year, through every joy and storm, you are my one and only forever."
+          </p>
+        </div>
+
+        <div class="flex flex-wrap items-center justify-center gap-3.5">
+          <button id="love-you-too-btn" class="bg-gradient-to-r from-rosebright via-rose-600 to-purple-600 hover:scale-105 transition-all text-white font-bold px-7 py-3.5 rounded-full shadow-2xl text-sm sm:text-base flex items-center gap-2 border border-white/30">
+            ❤️ Himanshu ♥ Vedu Forever ❤️
+          </button>
+          <button id="modal-relight-btn" class="glass-card hover:bg-white/10 text-rose-200 hover:text-white px-5 py-3 rounded-full text-xs uppercase tracking-wider font-semibold transition-all border border-rose-400/30 flex items-center gap-2">
+            <i class="fa-solid fa-rotate-right text-amber-300"></i>
+            <span>Re-light Candles & Replay 🎂</span>
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Floating Send Kiss Button -->
+  <button id="kiss-toggle" class="kiss-toggle-btn group" title="Send a Kiss to Himanshu">
+    <span class="text-base sm:text-lg">💋</span>
+    <span>Send Love</span>
+    <i class="fa-solid fa-heart text-white group-hover:scale-125 transition-transform animate-heartbeat"></i>
+  </button>
+
+  <!-- =========================================================================
+       FLOATING AUDIO CONTROLLER (Happy Birthday Song & Harmonies)
+       ========================================================================= -->
+  <button id="music-toggle" class="music-toggle-btn group" title="Play Happy Birthday Song for Vedu">
+    <div class="flex items-center gap-1">
+      <span class="equalizer-bar paused"></span>
+      <span class="equalizer-bar paused"></span>
+      <span class="equalizer-bar paused"></span>
+      <span class="equalizer-bar paused"></span>
+    </div>
+    <span id="music-label" class="text-xs sm:text-sm font-semibold tracking-wide">Play Happy Birthday Song 🎂</span>
+    <i class="fa-solid fa-cake-candles text-amber-300 group-hover:scale-125 transition-transform animate-pulse"></i>
+  </button>
+
+  <!-- AOS Animations Library -->
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+  <!-- Main Romantic Script -->
+  <script src="script.js?v=2.2"></script>
 </body>
 </html>
