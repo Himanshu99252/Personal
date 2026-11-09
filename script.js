@@ -186,25 +186,33 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // ------------------------------------------------------------------------
-  // 4. 3D Rotating Showcase Ring (Interactive 3D Carousel)
+  // 4. 3D Rotating Showcase Ring (Interactive 3D Carousel with Mobile Scaling)
   // ------------------------------------------------------------------------
   const ring = document.getElementById('carousel-3d-ring');
   if (ring) {
     const items = ring.querySelectorAll('.carousel-3d-item');
     const totalItems = items.length;
     let currAngle = 0;
-    const radius = window.innerWidth < 768 ? 260 : 380;
     const angleStep = 360 / totalItems;
     let isAutoRotating = true;
     let autoRotateInterval;
 
+    function getCarouselRadius() {
+      if (window.innerWidth < 380) return 175;
+      if (window.innerWidth < 480) return 205;
+      if (window.innerWidth < 768) return 250;
+      return 380;
+    }
+
     function setupRing() {
+      const radius = getCarouselRadius();
       items.forEach((item, index) => {
         const itemAngle = index * angleStep;
         item.style.transform = `rotateY(${itemAngle}deg) translateZ(${radius}px)`;
       });
     }
     setupRing();
+    window.addEventListener('resize', setupRing);
 
     function rotateRing(newAngle) {
       currAngle = newAngle;
@@ -679,7 +687,6 @@ document.addEventListener('DOMContentLoaded', () => {
   // 11. Grand Romantic Finale Surprise & 4-Candle Cake Ritual
   // ------------------------------------------------------------------------
   const finaleSurpriseBtn = document.getElementById('finale-surprise-btn');
-  const section9ToSurpriseBtn = document.getElementById('section9-to-surprise-btn');
   const surpriseModal = document.getElementById('surprise-modal');
   const surpriseModalClose = document.getElementById('surprise-modal-close');
   const loveYouTooBtn = document.getElementById('love-you-too-btn');
@@ -697,6 +704,8 @@ document.addEventListener('DOMContentLoaded', () => {
   let currentCandleIndex = 0;
   const totalPartyCandles = 4;
   let isFinalCandleBlowing = false;
+  let autoCandleInterval = null;
+  let autoCandleActive = false;
 
   function triggerConfettiHearts() {
     if (typeof confetti === 'function') {
@@ -766,92 +775,187 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
+  function startAutoCandleRitual() {
+    if (autoCandleActive && autoCandleInterval) return;
+    autoCandleActive = true;
+
+    // Start playing audio
+    playSurpriseAudio();
+
+    if (candlesStatusBadge) {
+      candlesStatusBadge.innerHTML = `🎵 Auto-Blowing Candles with Himanshu's Song... ✨`;
+    }
+    if (modalBlowBtnText) {
+      modalBlowBtnText.innerHTML = `🌬️ Auto-Blowing with Song... (Or Tap to Blow) 🎂`;
+    }
+
+    if (autoCandleInterval) {
+      clearInterval(autoCandleInterval);
+    }
+
+    const defaultSongDuration = 14.85; // exact duration of WhatsApp voice track
+    const startTime = Date.now();
+
+    autoCandleInterval = setInterval(() => {
+      let elapsed = 0;
+      if (surpriseAudio && !surpriseAudio.paused && surpriseAudio.currentTime > 0) {
+        elapsed = surpriseAudio.currentTime;
+      } else {
+        elapsed = (Date.now() - startTime) / 1000;
+      }
+
+      const dur = (surpriseAudio && !isNaN(surpriseAudio.duration) && surpriseAudio.duration > 2)
+        ? surpriseAudio.duration
+        : defaultSongDuration;
+
+      // Candle 1 Auto-blow (~22% of duration: ~3.3s)
+      if (elapsed >= dur * 0.22 && currentCandleIndex === 0) {
+        extinguishPartyCandle(0);
+        currentCandleIndex = 1;
+        if (typeof confetti === 'function') {
+          confetti({ particleCount: 25, spread: 50, origin: { y: 0.6 } });
+        }
+        if (candlesStatusBadge) {
+          candlesStatusBadge.innerHTML = `🔥 3 Candles Lit • Happy 23rd Birthday Vedu!`;
+        }
+        if (modalBlowBtnText) {
+          modalBlowBtnText.innerHTML = `Candle 1 Blown! Next blowing with music... 🌬️`;
+        }
+      }
+
+      // Candle 2 Auto-blow (~45% of duration: ~6.7s)
+      if (elapsed >= dur * 0.45 && currentCandleIndex === 1) {
+        extinguishPartyCandle(1);
+        currentCandleIndex = 2;
+        if (typeof confetti === 'function') {
+          confetti({ particleCount: 25, spread: 50, origin: { y: 0.6 } });
+        }
+        if (candlesStatusBadge) {
+          candlesStatusBadge.innerHTML = `🔥 2 Candles Lit • Saal Mubarak / Bestu Varas!`;
+        }
+        if (modalBlowBtnText) {
+          modalBlowBtnText.innerHTML = `Candle 2 Blown! 2 candles left... 🌬️`;
+        }
+      }
+
+      // Candle 3 Auto-blow (~68% of duration: ~10.1s)
+      if (elapsed >= dur * 0.68 && currentCandleIndex === 2) {
+        extinguishPartyCandle(2);
+        currentCandleIndex = 3;
+        if (typeof confetti === 'function') {
+          confetti({ particleCount: 25, spread: 50, origin: { y: 0.6 } });
+        }
+        if (candlesStatusBadge) {
+          candlesStatusBadge.innerHTML = `🔥 1 Candle Left! Making Deepest Wish... ✨`;
+        }
+        if (modalBlowBtnText) {
+          modalBlowBtnText.innerHTML = `Candle 3 Blown! Final Candle Wish Coming... 💖`;
+        }
+      }
+
+      // Candle 4 Intense Flicker ("Boojing like that" ~80% of duration: ~11.9s, approx 2.9s before song finish)
+      if (elapsed >= dur * 0.80 && currentCandleIndex === 3 && !isFinalCandleBlowing) {
+        isFinalCandleBlowing = true;
+        const lastFlame = document.getElementById('party-flame-4');
+        if (lastFlame) lastFlame.classList.add('flickering-hard');
+
+        if (candlesStatusBadge) {
+          candlesStatusBadge.innerHTML = `🌬️ Making Final Wish... Candle boojing with song! ✨`;
+        }
+        if (modalBlowBtnText) {
+          modalBlowBtnText.innerHTML = `<span class="animate-pulse">🌬️ Final wish... Boojing with Himanshu's melody! ✨</span>`;
+        }
+      }
+
+      // Candle 4 Extinguish & Grand Message Reveal on Song Completion (~98% of duration: ~14.5s)
+      if (elapsed >= dur * 0.98 && currentCandleIndex === 3) {
+        clearInterval(autoCandleInterval);
+        autoCandleInterval = null;
+        finishCandleBlowoutRitual();
+      }
+    }, 120);
+
+    if (surpriseAudio) {
+      surpriseAudio.onended = () => {
+        if (modalAudioBadge) modalAudioBadge.classList.add('hidden');
+        if (currentCandleIndex < 4) {
+          if (autoCandleInterval) {
+            clearInterval(autoCandleInterval);
+            autoCandleInterval = null;
+          }
+          finishCandleBlowoutRitual();
+        }
+      };
+    }
+  }
+
+  function finishCandleBlowoutRitual() {
+    for (let i = 0; i < 4; i++) {
+      extinguishPartyCandle(i);
+    }
+    currentCandleIndex = 4;
+    isFinalCandleBlowing = false;
+    autoCandleActive = false;
+
+    if (candlesStatusBadge) {
+      candlesStatusBadge.innerHTML = `🎉 All Candles Blown with Song! Wishes Granted! 🎂✨`;
+    }
+    if (modalBlowBtnText) {
+      modalBlowBtnText.innerHTML = `🎉 Song Complete! Himanshu Loves Vedu Forever! 💖`;
+    }
+
+    // Grand continuous confetti celebration
+    triggerConfettiHearts();
+    const end = Date.now() + 3500;
+    const interval = setInterval(() => {
+      if (Date.now() > end) {
+        clearInterval(interval);
+        return;
+      }
+      triggerConfettiHearts();
+    }, 350);
+
+    // Smoothly fade out ritual & reveal Grand Final Message
+    setTimeout(() => {
+      if (modalCandleRitual) modalCandleRitual.classList.add('hidden');
+      if (modalFinalMessage) {
+        modalFinalMessage.classList.remove('hidden');
+        modalFinalMessage.classList.add('animate-fade-in');
+      }
+    }, 850);
+  }
+
   function blowNextPartyCandle() {
     if (isFinalCandleBlowing) return;
     if (currentCandleIndex >= totalPartyCandles) return;
 
-    // Start playing Himanshu's special track on first blow action
-    if (currentCandleIndex === 0) {
-      playSurpriseAudio();
+    if (!autoCandleActive) {
+      startAutoCandleRitual();
+      return;
     }
 
+    // Manual click advances immediately if she wants to speed up
     if (currentCandleIndex < 3) {
-      // Normal candle blow (Candles 1, 2, 3)
       extinguishPartyCandle(currentCandleIndex);
       currentCandleIndex++;
-
-      // Small confetti burst on each candle blow
       if (typeof confetti === 'function') {
-        confetti({
-          particleCount: 25,
-          spread: 50,
-          origin: { y: 0.6 }
-        });
+        confetti({ particleCount: 25, spread: 50, origin: { y: 0.6 } });
       }
-
       const remaining = totalPartyCandles - currentCandleIndex;
-      if (currentCandleIndex === 3) {
-        if (modalBlowBtnText) {
-          modalBlowBtnText.innerHTML = `Make Deep Wish & Blow Last Candle (1 remaining)! 💖`;
-        }
-        if (candlesStatusBadge) {
-          candlesStatusBadge.innerHTML = `🔥 1 Candle Remaining! Make Your Deepest Wish! ✨`;
-        }
-      } else {
-        if (modalBlowBtnText) {
-          modalBlowBtnText.innerHTML = `Blow Candle ${currentCandleIndex + 1} (${remaining} remaining) 🌬️`;
-        }
-        if (candlesStatusBadge) {
-          candlesStatusBadge.innerHTML = `🔥 ${remaining} Candles Lit &bull; Keep Blowing!`;
-        }
+      if (candlesStatusBadge) {
+        candlesStatusBadge.innerHTML = `🔥 ${remaining} Candles Lit &bull; Auto-Blowing with Song!`;
       }
     } else if (currentCandleIndex === 3) {
-      // The 4th and LAST candle: "last cancle boojing like that"
-      // Wait 2-3 seconds with intense flicker before blowing out!
       isFinalCandleBlowing = true;
       const lastFlame = document.getElementById('party-flame-4');
-      if (lastFlame) {
-        lastFlame.classList.add('flickering-hard');
-      }
-
-      if (modalBlowBtn) modalBlowBtn.disabled = true;
-      if (modalBlowBtnText) {
-        modalBlowBtnText.innerHTML = `<span class="animate-pulse">🌬️ Making the ultimate wish... (Blowing hard... 2-3s) ✨</span>`;
-      }
-      if (candlesStatusBadge) {
-        candlesStatusBadge.innerHTML = `🌬️ Blowing the final candle... Hold your wish tight! ✨`;
-      }
-
+      if (lastFlame) lastFlame.classList.add('flickering-hard');
       setTimeout(() => {
-        // Last candle extinguishes ("boojh gayi")
-        extinguishPartyCandle(3);
-        currentCandleIndex = 4;
-        isFinalCandleBlowing = false;
-
-        if (candlesStatusBadge) {
-          candlesStatusBadge.innerHTML = `🎉 All 4 Candles Blown! Himanshu & Vedu Forever! 🎂✨`;
+        if (autoCandleInterval) {
+          clearInterval(autoCandleInterval);
+          autoCandleInterval = null;
         }
-
-        // Grand celebratory confetti burst
-        triggerConfettiHearts();
-        const end = Date.now() + 3500;
-        const interval = setInterval(() => {
-          if (Date.now() > end) {
-            clearInterval(interval);
-            return;
-          }
-          triggerConfettiHearts();
-        }, 350);
-
-        // Smoothly fade out ritual & reveal Grand Final Message
-        setTimeout(() => {
-          if (modalCandleRitual) modalCandleRitual.classList.add('hidden');
-          if (modalFinalMessage) {
-            modalFinalMessage.classList.remove('hidden');
-            modalFinalMessage.classList.add('animate-fade-in');
-          }
-        }, 850);
-      }, 2500); // 2.5 seconds (the exact 2-3 second wait)
+        finishCandleBlowoutRitual();
+      }, 2500);
     }
   }
 
@@ -873,8 +977,14 @@ document.addEventListener('DOMContentLoaded', () => {
   // Re-light candles button
   if (modalRelightBtn) {
     modalRelightBtn.addEventListener('click', () => {
+      if (autoCandleInterval) {
+        clearInterval(autoCandleInterval);
+        autoCandleInterval = null;
+      }
       currentCandleIndex = 0;
       isFinalCandleBlowing = false;
+      autoCandleActive = false;
+
       for (let i = 1; i <= 4; i++) {
         const flame = document.getElementById(`party-flame-${i}`);
         const smoke = document.getElementById(`party-smoke-${i}`);
@@ -882,13 +992,17 @@ document.addEventListener('DOMContentLoaded', () => {
         if (smoke) smoke.classList.remove('rise');
       }
       if (modalBlowBtn) modalBlowBtn.disabled = false;
-      if (modalBlowBtnText) modalBlowBtnText.innerHTML = `Blow Candle 1 (4 remaining) 🌬️`;
-      if (candlesStatusBadge) candlesStatusBadge.innerHTML = `🔥 4 Candles Lit &bull; Tap a Candle or Click Below`;
+      if (modalBlowBtnText) modalBlowBtnText.innerHTML = `🌬️ Auto-Blowing with Song... (Or Tap Here) 🎂`;
+      if (candlesStatusBadge) candlesStatusBadge.innerHTML = `🎵 Auto-Blowing Candles with Himanshu's Song... ✨`;
 
       if (modalFinalMessage) modalFinalMessage.classList.add('hidden');
       if (modalCandleRitual) modalCandleRitual.classList.remove('hidden');
 
       triggerConfettiHearts();
+
+      setTimeout(() => {
+        startAutoCandleRitual();
+      }, 300);
     });
   }
 
@@ -903,6 +1017,8 @@ document.addEventListener('DOMContentLoaded', () => {
     } else {
       if (modalCandleRitual) modalCandleRitual.classList.remove('hidden');
       if (modalFinalMessage) modalFinalMessage.classList.add('hidden');
+      // Automatically begin the song & candle blowout sequence!
+      startAutoCandleRitual();
     }
 
     triggerConfettiHearts();
@@ -912,14 +1028,15 @@ document.addEventListener('DOMContentLoaded', () => {
     finaleSurpriseBtn.addEventListener('click', openSurpriseModal);
   }
 
-  if (section9ToSurpriseBtn) {
-    section9ToSurpriseBtn.addEventListener('click', openSurpriseModal);
-  }
-
   if (surpriseModalClose && surpriseModal) {
     surpriseModalClose.addEventListener('click', () => {
       surpriseModal.classList.add('hidden');
       surpriseModal.classList.remove('flex');
+      if (autoCandleInterval) {
+        clearInterval(autoCandleInterval);
+        autoCandleInterval = null;
+      }
+      autoCandleActive = false;
       if (surpriseAudio) {
         surpriseAudio.pause();
       }
